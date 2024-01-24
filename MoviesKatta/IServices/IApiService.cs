@@ -1,6 +1,6 @@
 ﻿namespace MoviesKatta.IServices;
 
-public class IApiService
+public interface IApiService
 {
-    
+    Task<YoutubeModels> SearchVideos(string searchQuery, string nextPageToken = "");
 }

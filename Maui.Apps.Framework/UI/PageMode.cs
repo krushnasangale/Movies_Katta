@@ -1,6 +1,9 @@
 ﻿namespace Maui.Apps.Framework.UI;
 
-public class PageMode
+public enum PageMode
 {
-    
+    None,
+    Menu,
+    Navigate,
+    Modal
 }

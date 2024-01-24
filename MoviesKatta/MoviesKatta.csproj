@@ -44,6 +44,7 @@
 		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.6" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.6" />
 		<PackageReference Include="MonkeyCache.FileStore" Version="2.1.0-beta" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="DevExpress.Maui.Controls" Version="23.2.3" />
@@ -53,14 +54,10 @@
 		<TrimmableAssembly Include="DevExpress.Data.v23.2" />
 	</ItemGroup>
 	<ItemGroup>
-	  <Folder Include="Helpers\" />
-	  <Folder Include="IServices\" />
 	  <Folder Include="IViews\" />
-	  <Folder Include="Models\" />
 	  <Folder Include="Resources\Styles\" />
-	  <Folder Include="Services\" />
-	  <Folder Include="ViewControls\" />
-	  <Folder Include="ViewModels\Base\" />
-	  <Folder Include="Views\Base\" />
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\Maui.Apps.Framework\Maui.Apps.Framework.csproj" />
 	</ItemGroup>
 </Project>

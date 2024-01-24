@@ -1,6 +1,7 @@
 ﻿namespace Maui.Apps.Framework.UI;
 
-public class ContentDisplayMode
+public enum ContentDisplayMode
 {
-    
+    NoNavigationBar,
+    NavigationBar
 }
