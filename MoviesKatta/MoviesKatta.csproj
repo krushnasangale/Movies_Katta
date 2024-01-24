@@ -1,0 +1,66 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net8.0-android;net8.0-ios</TargetFrameworks>
+    	<OutputType>Exe</OutputType>
+		<UseMaui>true</UseMaui>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<SingleProject>true</SingleProject>
+		<RootNamespace>MoviesKatta</RootNamespace>
+
+		<!-- Display name -->
+		<ApplicationTitle>Movies Katta</ApplicationTitle>
+
+		<!-- App Identifier -->
+		<ApplicationId>com.KD.MoviesKatta</ApplicationId>
+		<ApplicationIdGuid>02E91AB9-0211-4165-A796-2AF9C8F6C3D2</ApplicationIdGuid>
+		<!-- Versions -->
+		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+		<ApplicationVersion>1</ApplicationVersion>
+
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">14.2</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
+		<UseInterpreter Condition="$(TargetFramework.Contains('-ios')) AND '$(Configuration)' == 'Release'">True</UseInterpreter>
+	</PropertyGroup>
+	<ItemGroup>
+		<!-- App Icon -->
+		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#262626" />
+
+		<!-- Splash Screen -->
+		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#262626" BaseSize="128,128" />
+
+		<!-- Images -->
+		<MauiImage Include="Resources\Images\*" />
+
+		<!-- Custom Fonts -->
+		<MauiFont Include="Resources\Fonts\*" />
+
+		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
+		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.6" />
+		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.6" />
+		<PackageReference Include="MonkeyCache.FileStore" Version="2.1.0-beta" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="DevExpress.Maui.Controls" Version="23.2.3" />
+		<PackageReference Include="DevExpress.Maui.Core" Version="23.2.3" />
+		<PackageReference Include="DevExpress.Maui.CollectionView" Version="23.2.3" />
+		<PackageReference Include="DevExpress.Maui.Editors" Version="23.2.3" />
+		<TrimmableAssembly Include="DevExpress.Data.v23.2" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="Helpers\" />
+	  <Folder Include="IServices\" />
+	  <Folder Include="IViews\" />
+	  <Folder Include="Models\" />
+	  <Folder Include="Resources\Styles\" />
+	  <Folder Include="Services\" />
+	  <Folder Include="ViewControls\" />
+	  <Folder Include="ViewModels\Base\" />
+	  <Folder Include="Views\Base\" />
+	</ItemGroup>
+</Project>
