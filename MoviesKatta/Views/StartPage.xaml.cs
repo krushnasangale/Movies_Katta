@@ -1,10 +1,9 @@
 ﻿namespace MoviesKatta.Views;
 
-public partial class StartPage
+public partial class StartPage : ViewBase<StartPageViewModel>
 {
     public StartPage()
     {
         InitializeComponent();
-        NavigationPage.SetHasNavigationBar(this, false);
     }
 }

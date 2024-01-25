@@ -12,3 +12,7 @@ global using MoviesKatta.IServices;
 global using Maui.Apps.Framework.UI;
 global using Grid = Microsoft.Maui.Controls.Grid;
 global using Microsoft.Maui.LifecycleEvents;
+global using MoviesKatta.ViewModels.Base;
+global using MoviesKatta.Helpers;
+global using MoviesKatta.ViewModels;
+global using MoviesKatta.Views.Base;

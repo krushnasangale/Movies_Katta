@@ -1,4 +1,9 @@
-﻿namespace MoviesKatta
+﻿using MonkeyCache;
+using MonkeyCache.FileStore;
+using MoviesKatta.Services;
+using MoviesKatta.ViewModels;
+
+namespace MoviesKatta
 {
     public static class MauiProgram
     {
@@ -31,7 +36,29 @@
 #endif
                 });
 
+            RegisterServices(builder.Services);
             return builder.Build();
+        }
+
+        private static void RegisterServices(IServiceCollection services)
+        {
+            //Add Platform specific Dependencies
+            services.AddSingleton<IConnectivity>(Connectivity.Current);
+
+            //Register Cache Barrel
+            Barrel.ApplicationId = Constants.ApplicationId;
+            services.AddSingleton<IBarrel>(Barrel.Current);
+
+
+            //Register API Service
+            services.AddSingleton<IApiService, YoutubeService>();
+
+            //Register FileDownloadService
+            // services.AddSingleton<IDownloadFileService, FileDownloadService>();
+            //
+            // //Register View Models
+            services.AddSingleton<StartPageViewModel>();
+            // services.AddTransient<VideoDetailsPageViewModel>();
         }
     }
 }

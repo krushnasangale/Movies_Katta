@@ -1,15 +1,46 @@
 ﻿<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:dx="clr-namespace:DevExpress.Maui.Core;assembly=DevExpress.Maui.Core"
+             xmlns:controls="clr-namespace:DevExpress.Maui.Core;assembly=DevExpress.Maui.Core"
              x:Class="MoviesKatta.App">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
             <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
 
+            <Color x:Key="Primary">#6750A4</Color>
+            <Color x:Key="PrimaryDark">#D1BCFF</Color>
+            <Color x:Key="Secondary">#DFD8F7</Color>
+            <Color x:Key="Tertiary">#2B0B98</Color>
+            <Color x:Key="White">White</Color>
+            <Color x:Key="Black">Black</Color>
+            <Color x:Key="Gray50">#F2F2F7</Color>
+            <Color x:Key="Gray100">#E1E1E1</Color>
+            <Color x:Key="Gray200">#C8C8C8</Color>
+            <Color x:Key="Gray300">#ACACAC</Color>
+            <Color x:Key="Gray400">#919191</Color>
+            <Color x:Key="Gray500">#6E6E6E</Color>
+            <Color x:Key="Gray600">#404040</Color>
+            <Color x:Key="Gray900">#212121</Color>
+            <Color x:Key="Gray950">#141414</Color>
+            <Color x:Key="TonalForeground">#1D192B</Color>
+            <Color x:Key="OnSurfaceForeground">#1C1B1F</Color>
+            
             <!-- labels -->
             <Style TargetType="Label">
-                <Setter Property="TextColor" Value="{dx:ThemeColor OnSurface}" />
+                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Gray950}, Dark={StaticResource White}}"/>
+            </Style>
+            <Style TargetType="Page" ApplyToDerivedTypes="True">
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource Gray50}, Dark={StaticResource Black}}" />
+            </Style>
+            
+            <Style TargetType="controls:DXImage" x:Key="ButtonImageBase">
+                <Setter Property="HeightRequest" Value="18"/>
+                <Setter Property="WidthRequest" Value="18"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+            </Style>
+            
+            <Style TargetType="controls:DXImage" x:Key="FilledButtonTextImageWhiteDark" BasedOn="{StaticResource ButtonImageBase}">
+                <Setter Property="TintColor" Value="{AppThemeBinding Light={StaticResource Gray950}, Dark={StaticResource White}}"/>
             </Style>
             
             <!-- Grid Styles -->
