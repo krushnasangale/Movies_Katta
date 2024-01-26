@@ -65,6 +65,7 @@
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="models:Item">
                     <viewControls:VideoCell
+                        ParentContext="{Binding BindingContext, Source={x:Reference RootPage}}"
                         HorizontalOptions="Fill"
                         VerticalOptions="Fill">
                     </viewControls:VideoCell>

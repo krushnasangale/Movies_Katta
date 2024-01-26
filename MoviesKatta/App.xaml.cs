@@ -1,6 +1,4 @@
-﻿using MoviesKatta.Views;
-
-namespace MoviesKatta
+﻿namespace MoviesKatta
 {
     public partial class App : Application
     {

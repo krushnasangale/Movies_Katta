@@ -1,9 +1,4 @@
-﻿using MonkeyCache;
-using MonkeyCache.FileStore;
-using MoviesKatta.Services;
-using MoviesKatta.ViewModels;
-
-namespace MoviesKatta
+﻿namespace MoviesKatta
 {
     public static class MauiProgram
     {

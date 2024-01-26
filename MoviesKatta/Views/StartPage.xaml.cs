@@ -1,13 +1,11 @@
 ﻿namespace MoviesKatta.Views;
 
-public partial class StartPage : ViewBase<StartPageViewModel>
+public partial class StartPage
 {
     public static BindableProperty ItemsHeightProperty = BindableProperty.Create(
         nameof(ItemsHeight),
         typeof(double),
-        typeof(StartPage),
-        null,
-        BindingMode.OneWay);
+        typeof(StartPage));
 
     public double ItemsHeight
     {

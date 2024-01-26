@@ -90,4 +90,10 @@ public partial class StartPageViewModel : AppViewModelBase
         SearchTerm = searchQuery.Trim();
         await Search();
     }
+
+    [RelayCommand]
+    private async Task NavigateToVideoDetailsPage(string videoId)
+    {
+        await NavigationService.PushAsync(new VideoDetailsPage(videoId), false);
+    }
 }
