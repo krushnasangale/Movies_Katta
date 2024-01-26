@@ -1,7 +1,4 @@
-﻿using CommunityToolkit.Mvvm.Input;
-using Maui.Apps.Framework.Extensions;
-
-namespace MoviesKatta.ViewModels;
+﻿namespace MoviesKatta.ViewModels;
 
 public partial class StartPageViewModel : AppViewModelBase
 {
