@@ -4,6 +4,11 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                     xmlns:baseViews="clr-namespace:MoviesKatta.Views.Base"
                     xmlns:viewModels="clr-namespace:MoviesKatta.ViewModels"
+                    xmlns:viewControls="clr-namespace:MoviesKatta.ViewControls"
+                    xmlns:models="clr-namespace:MoviesKatta.Models"
+                    xmlns:dxco="clr-namespace:DevExpress.Maui.Controls;assembly=DevExpress.Maui.Controls"
+                    xmlns:core="clr-namespace:DevExpress.Maui.Core;assembly=DevExpress.Maui.Core"
+                    xmlns:editors="clr-namespace:DevExpress.Maui.Editors;assembly=DevExpress.Maui.Editors"
                     x:TypeArguments="viewModels:StartPageViewModel"
                     PageTitle="{Binding Title, Mode=OneWay}"
                     PageMode="Menu"
@@ -11,13 +16,74 @@
                     x:Name="RootPage"
                     x:DataType="viewModels:StartPageViewModel"
                     x:Class="MoviesKatta.Views.StartPage">
-    
+
     <baseViews:ViewBase.PageIcons>
-        <ImageButton Source="icnsettings.png"></ImageButton>
+        <dxco:SimpleButton HeightRequest="50" CornerRadius="10"
+                           BorderColor="Transparent"
+                           BackgroundColor="Transparent"
+                           PressedBorderColor="Transparent"
+                           Command="{Binding OpenSettingsPageCommand}">
+            <core:DXImage Source="icnsettings.png"
+                          Style="{StaticResource FilledButtonTextImageWhiteDark}"
+                          HeightRequest="25"
+                          WidthRequest="25">
+            </core:DXImage>
+        </dxco:SimpleButton>
+
     </baseViews:ViewBase.PageIcons>
 
+    <!-- page content -->
     <baseViews:ViewBase.PageContent>
-        <Label IsVisible="{Binding DataLoaded}"
-               Text="content"></Label>
+
+        <CollectionView ItemsSource="{Binding YoutubeVideos, Mode=OneWay}"
+                        RemainingItemsThreshold="1"
+                        RemainingItemsThresholdReachedCommand="{Binding LoadMoreVideosCommand}"
+                        x:Name="LstVideos">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout ItemSpacing="12"
+                                   Orientation="Vertical" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.Header>
+                <ContentView>
+                    <editors:TextEdit EndIcon="collectionview_crud_search"
+                                      x:Name="SearchBar"
+                                      PlaceholderText="Search..."
+                                      TextFontSize="14"
+                                      ClearIconColor="{core:ThemeColor OnSurfaceVariant}"
+                                      TextVerticalAlignment="Center"
+                                      BackgroundColor="{core:ThemeColor SurfaceContainerHighest}"
+                                      BorderThickness="0" BoxPadding="20,8,10,8"
+                                      PlaceholderColor="{core:ThemeColor OnSurfaceVariant}"
+                                      EndIconColor="{core:ThemeColor OnSurfaceVariant}"
+                                      FocusedBorderThickness="0" CornerRadius="19" HeightRequest="38"
+                                      Margin="15,10,15,10"
+                                      Completed="SearchBar_OnCompleted"
+                                      EndIconCommand="{Binding SearchVideosCommand}"
+                                      EndIconCommandParameter="{Binding Path=Text, Source={x:Reference SearchBar}, Mode=OneWay}" />
+                </ContentView>
+            </CollectionView.Header>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Item">
+                    <viewControls:VideoCell
+                        HorizontalOptions="Fill"
+                        VerticalOptions="Fill">
+                    </viewControls:VideoCell>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+            <!-- Load More Indicator -->
+            <CollectionView.Footer>
+                <ContentView
+                    HeightRequest="56">
+                    <ActivityIndicator
+                        BackgroundColor="Transparent"
+                        IsRunning="{Binding IsLoadingMore, Mode=OneWay}"
+                        WidthRequest="44"
+                        HeightRequest="44"
+                        HorizontalOptions="Center"
+                        Color="{core:ThemeColor OnSurface}"
+                        Scale="{OnPlatform iOS=1.3, Android=1.0}" />
+                </ContentView>
+            </CollectionView.Footer>
+        </CollectionView>
     </baseViews:ViewBase.PageContent>
 </baseViews:ViewBase>

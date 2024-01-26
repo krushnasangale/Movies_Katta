@@ -6,7 +6,7 @@ public class Constants
     public static string EmailAddress = @"krushnasangale7447@gmail.com";
     public static string ApplicationId = "com.KD.MoviesKatta";
     public static string ApiServiceUrl = @"https://youtube.googleapis.com/youtube/v3/";
-    public static string ApiKey = @"AIzaSyAb0WtMf4weEkSNs5lBZbd7QzQ0uNwpJW4";
+    public static string ApiKey = "AIzaSyBFyMSvgeb3kkSx8Yx4oPZJQCbnP8fOxOI";
 
 
     public static uint MicroDuration { get; set; } = 100;

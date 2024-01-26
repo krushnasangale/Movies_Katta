@@ -1,56 +1,96 @@
-﻿namespace MoviesKatta.Models;
+﻿using System.Text.Json.Serialization;
 
-public class YoutubeModels
+namespace MoviesKatta.Models;
+
+// Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
+public class Default
 {
-    [JsonProperty("nextPageToken")] public string NextPageToken { get; set; }
-
-    [JsonProperty("pageInfo")] public PageInfo PageInfo { get; set; }
-
-    [JsonProperty("items")] public List<YoutubeVideo> Items { get; set; }
+    public string url { get; set; }
+    public int width { get; set; }
+    public int height { get; set; }
 }
 
-public class Thumbnail
+public class High
 {
-    [JsonProperty("url")] public string Url { get; set; }
+    public string url { get; set; }
+    public int width { get; set; }
+    public int height { get; set; }
 }
 
 public class Id
 {
-    [JsonProperty("videoId")] public string VideoId { get; set; }
+    public string kind { get; set; }
+    public string videoId { get; set; }
 }
 
-public class YoutubeVideo
+public class Item
 {
-    [JsonProperty("id")] public Id Id { get; set; }
+    public string kind { get; set; }
+    public string etag { get; set; }
+    public Id id { get; set; }
+    public Snippet snippet { get; set; }
+}
 
-    [JsonProperty("snippet")] public Snippet Snippet { get; set; }
+public class Medium
+{
+    public string url { get; set; }
+    public int width { get; set; }
+    public int height { get; set; }
 }
 
 public class PageInfo
 {
-    [JsonProperty("totalResults")] public int TotalResults { get; set; }
+    public int totalResults { get; set; }
+    public int resultsPerPage { get; set; }
+}
 
-    [JsonProperty("resultsPerPage")] public int ResultsPerPage { get; set; }
+public class YoutubeSearchResult
+{
+    public string kind { get; set; }
+    public string etag { get; set; }
+    public string nextPageToken { get; set; }
+    public string regionCode { get; set; }
+    public PageInfo pageInfo { get; set; }
+    public List<Item> items { get; set; }
 }
 
 public class Snippet
 {
-    [JsonProperty("publishedAt")] public DateTime PublishedAt { get; set; }
-
-    [JsonProperty("channelId")] public string ChannelId { get; set; }
-
-    [JsonProperty("title")] public string Title { get; set; }
-
-    [JsonProperty("description")] public string Description { get; set; }
-
-    [JsonProperty("thumbnails")] public Thumbnails Thumbnails { get; set; }
-
-    [JsonProperty("channelTitle")] public string ChannelTitle { get; set; }
+    public DateTime publishedAt { get; set; }
+    public string channelId { get; set; }
+    public string title { get; set; }
+    public string description { get; set; }
+    public Thumbnails thumbnails { get; set; }
+    public string channelTitle { get; set; }
+    public string liveBroadcastContent { get; set; }
+    public DateTime publishTime { get; set; }
+    [Newtonsoft.Json.JsonIgnore] public string channelImageUrl { get; set; }
 }
 
 public class Thumbnails
 {
-    [JsonProperty("medium")] public Thumbnail Medium { get; set; }
+    public Default @default { get; set; }
+    public Medium medium { get; set; }
+    public High high { get; set; }
+}
 
-    [JsonProperty("high")] public Thumbnail High { get; set; }
+//Channel related models
+
+public class ChannelSearchResult
+{
+    [JsonPropertyName("items")] public List<Channel> Items { get; set; }
+}
+
+public class Channel
+{
+    [JsonPropertyName("id")] public string Id { get; set; }
+
+    [JsonPropertyName("snippet")] public Snippet Snippet { get; set; }
+
+    // [JsonPropertyName("statistics")] public Statistics Statistics { get; set; }
+    //
+    // public string SubscribersCount
+    // {
+    //     get => $"{Statistics.SubscriberCount.FormattedNumber()} subscribers";
+    // }
 }

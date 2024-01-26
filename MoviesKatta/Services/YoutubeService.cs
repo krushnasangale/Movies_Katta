@@ -12,13 +12,21 @@ public class YoutubeService : RestServiceBase, IApiService
         SetBaseUrl(Constants.ApiServiceUrl);
     }
 
-    public async Task<YoutubeModels> SearchVideos(string searchQuery, string nextPageToken = "")
+    public async Task<YoutubeSearchResult> SearchVideos(string searchQuery, string nextPageToken = "")
     {
         var resourceUri =
-            $"search?part=snippet&maxResults=10&q={WebUtility.UrlEncode(searchQuery)}&type=video&key={Constants.ApiKey}"
-            + (!string.IsNullOrEmpty(nextPageToken)? $"&pageToken={nextPageToken}" : "");
+            $"search?part=snippet&maxResults=10&type=video&key={Constants.ApiKey}&q={WebUtility.UrlEncode(searchQuery)}"
+            +
+            (!string.IsNullOrEmpty(nextPageToken) ? $"&pageToken={nextPageToken}" : "");
 
-        var result = await GetAsync<YoutubeModels>(resourceUri, 4);
+        var result = await GetAsync<YoutubeSearchResult>(resourceUri, 4);
+        return result;
+    }
+
+    public async Task<ChannelSearchResult> GetChannels(string channelIds)
+    {
+        var resourceUri = $"channels?part=snippet&id={channelIds}&key={Constants.ApiKey}";
+        var result = await GetAsync<ChannelSearchResult>(resourceUri, 4);
         return result;
     }
 }

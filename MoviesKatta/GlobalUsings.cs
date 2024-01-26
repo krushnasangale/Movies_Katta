@@ -16,3 +16,6 @@ global using MoviesKatta.ViewModels.Base;
 global using MoviesKatta.Helpers;
 global using MoviesKatta.ViewModels;
 global using MoviesKatta.Views.Base;
+global using System.Collections.ObjectModel;
+global using CommunityToolkit.Mvvm.ComponentModel;
+global using Maui.Apps.Framework.Exceptions;

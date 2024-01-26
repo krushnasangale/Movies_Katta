@@ -2,5 +2,6 @@
 
 public interface IApiService
 {
-    Task<YoutubeModels> SearchVideos(string searchQuery, string nextPageToken = "");
+    Task<YoutubeSearchResult> SearchVideos(string searchQuery, string nextPageToken = "");
+    Task<ChannelSearchResult> GetChannels(string channelIds);
 }
