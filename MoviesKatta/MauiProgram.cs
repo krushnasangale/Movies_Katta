@@ -53,7 +53,7 @@
             //
             // //Register View Models
             services.AddSingleton<StartPageViewModel>();
-            // services.AddTransient<VideoDetailsPageViewModel>();
+            services.AddTransient<VideoDetailsPageViewModel>();
         }
     }
 }
