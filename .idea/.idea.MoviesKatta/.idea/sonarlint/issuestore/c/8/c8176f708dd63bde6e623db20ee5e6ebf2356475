@@ -1,0 +1,4 @@
+
+›csharpsquid:S1186m"yAdd a nested comment explaining why this method is empty, throw a 'NotSupportedException' or complete the implementation.(¤ÿ»”ûÿÿÿÿ
+scsharpsquid:S6608"QIndexing at 0 should be used instead of the "Enumerable" extension method "First"(¿¹´Ûùÿÿÿÿ
+ncsharpsquid:S6608$"QIndexing at 0 should be used instead of the "Enumerable" extension method "First"(Ú×¹Š

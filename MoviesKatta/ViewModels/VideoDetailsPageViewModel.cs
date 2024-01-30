@@ -6,6 +6,7 @@ public partial class VideoDetailsPageViewModel : AppViewModelBase
     [ObservableProperty] private List<Item> _similarVideos;
     [ObservableProperty] private Channel _theChannel;
     [ObservableProperty] private List<Comment> _comments;
+    [ObservableProperty] private string _videoSource;
     public event EventHandler DownloadCompleted;
 
     public VideoDetailsPageViewModel(IApiService apiService) : base(apiService)

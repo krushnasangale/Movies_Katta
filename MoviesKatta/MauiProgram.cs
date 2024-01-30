@@ -9,6 +9,9 @@
             builder
                 .UseMauiApp<App>()
                 .UseDevExpress(useLocalization: true)
+                .UseMauiCompatibility()
+                .UseMauiCommunityToolkit()
+                .UseMauiCommunityToolkitMediaElement()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("FiraSans-Light.ttf", "RegularFont");

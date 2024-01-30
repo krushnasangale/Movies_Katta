@@ -1,4 +1,6 @@
-﻿namespace MoviesKatta.Views;
+﻿using DevExpress.Maui.Controls;
+
+namespace MoviesKatta.Views;
 
 public partial class VideoDetailsPage
 {
@@ -73,5 +75,11 @@ public partial class VideoDetailsPage
             {
                 //Action to perform on completion (if any)
             });
+    }
+
+    private void BtnComments_OnClicked(object sender, EventArgs e)
+    {
+        CommentsBottomSheet.HalfExpandedRatio = 0.6;
+        CommentsBottomSheet.State = BottomSheetState.HalfExpanded;
     }
 }
