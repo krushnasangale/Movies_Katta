@@ -82,4 +82,9 @@ public partial class VideoDetailsPage
         CommentsBottomSheet.HalfExpandedRatio = 0.6;
         CommentsBottomSheet.State = BottomSheetState.HalfExpanded;
     }
+    void VideoPlayerButton_Clicked(Object sender, EventArgs e)
+    {
+        VideoPlayer.IsVisible = true;
+        VideoPlayer.Play();
+    }
 }

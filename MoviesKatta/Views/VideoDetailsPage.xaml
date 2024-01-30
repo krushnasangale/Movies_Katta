@@ -9,6 +9,7 @@
                     xmlns:converters="clr-namespace:Maui.Apps.Framework.Converters;assembly=Maui.Apps.Framework"
                     xmlns:controls="clr-namespace:DevExpress.Maui.Controls;assembly=DevExpress.Maui.Controls"
                     xmlns:models="clr-namespace:MoviesKatta.Models"
+                    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
                     x:TypeArguments="viewModels:VideoDetailsPageViewModel"
                     x:DataType="viewModels:VideoDetailsPageViewModel"
                     PageTitle="{Binding Title, Mode=OneWay}"
@@ -53,6 +54,15 @@
                     </Image.Source>
                 </Image>
             </Frame>
+            
+            <!-- Play Button -->
+            <ImageButton
+                Source="imgplay.png"
+                HeightRequest="64"
+                WidthRequest="64"
+                VerticalOptions="Center"
+                HorizontalOptions="Center"
+                Clicked="VideoPlayerButton_Clicked"/>
 
             <!-- Duration -->
             <Border
@@ -70,6 +80,15 @@
                     VerticalOptions="Center"
                     VerticalTextAlignment="Center" />
             </Border>
+            
+            <!-- Media Player -->
+            <toolkit:MediaElement x:Name="VideoPlayer"
+                                  IsVisible="False"
+                                  ShouldAutoPlay="False"
+                                  ShouldShowPlaybackControls="True"
+                                  Source="{Binding VideoSource, Mode=OneWay}"
+                                  HeightRequest="300"
+                                  WidthRequest="400"/>
 
             <!-- Video Title -->
             <VerticalStackLayout

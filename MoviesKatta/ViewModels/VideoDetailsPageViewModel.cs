@@ -41,6 +41,8 @@ public partial class VideoDetailsPageViewModel : AppViewModelBase
             
             //Get Comments
             await GetComments(videoId);
+
+            VideoSource = "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
             
             //Raise Data Load completed event to the UI
             DataLoaded = true;
