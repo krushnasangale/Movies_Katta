@@ -1,6 +1,4 @@
 
-Scsharpsquid:S2930~"*Dispose 'cts' when it is no longer needed.(¬÷Åøÿÿÿÿ8°ÎıñÕ1
-zcsharpsquid:S6608'"QIndexing at 0 should be used instead of the "Enumerable" extension method "First"(¿¹´Ûùÿÿÿÿ8½ÙÖğÕ1
-ucsharpsquid:S6608-"QIndexing at 0 should be used instead of the "Enumerable" extension method "First"(Ú×¹Š8¾ÙÖğÕ1
-`csharpsquid:S1481Œ"6Remove the unused local variable 'downloadedFilePath'.(ÁŠÀ”ûÿÿÿÿ8ûßòÕ1
-Ccsharpsquid:S125–"Remove this commented out code.(Ú°à¬8ûßòÕ1
+Scsharpsquid:S2930~"*Dispose 'cts' when it is no longer needed.(¬÷Åøÿÿÿÿ8ü‹øÕ1
+zcsharpsquid:S6608'"QIndexing at 0 should be used instead of the "Enumerable" extension method "First"(¿¹´Ûùÿÿÿÿ8ı‹øÕ1
+ucsharpsquid:S6608-"QIndexing at 0 should be used instead of the "Enumerable" extension method "First"(Ú×¹Š8ı‹øÕ1

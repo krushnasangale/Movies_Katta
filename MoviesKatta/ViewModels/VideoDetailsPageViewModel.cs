@@ -146,11 +146,11 @@ public partial class VideoDetailsPageViewModel : AppViewModelBase
             await _toastService.ShowToast("Download Completed!");
 
             // Save the file
-            // await Share.RequestAsync(new ShareFileRequest
-            // {
-            //     File = new ShareFile(downloadedFilePath),
-            //     Title = TheVideo.Snippet.title
-            // });
+            await Share.RequestAsync(new ShareFileRequest
+            {
+                File = new ShareFile(downloadedFilePath),
+                Title = TheVideo.Snippet.title
+            });
         }
         catch (OperationCanceledException ex)
         {
