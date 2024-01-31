@@ -17,6 +17,7 @@ public partial class VideoDetailsPage
     protected override void OnDisappearing()
     {
         ((VideoDetailsPageViewModel)BindingContext).DownloadCompleted -= VideoDetailsPage_DownloadCompleted;
+        VideoPlayer.Stop();
         base.OnDisappearing();
     }
 

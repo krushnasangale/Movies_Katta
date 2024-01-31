@@ -1,4 +1,7 @@
-﻿namespace MoviesKatta.ViewModels;
+﻿using YoutubeExplode;
+using YoutubeExplode.Videos.Streams;
+
+namespace MoviesKatta.ViewModels;
 
 public partial class VideoDetailsPageViewModel : AppViewModelBase
 {
@@ -7,6 +10,7 @@ public partial class VideoDetailsPageViewModel : AppViewModelBase
     [ObservableProperty] private Channel _theChannel;
     [ObservableProperty] private List<Comment> _comments;
     [ObservableProperty] private string _videoSource;
+    private IEnumerable<MuxedStreamInfo> streamInfos;
     public event EventHandler DownloadCompleted;
 
     public VideoDetailsPageViewModel(IApiService apiService) : base(apiService)
@@ -32,18 +36,19 @@ public partial class VideoDetailsPageViewModel : AppViewModelBase
             //Find Similar Videos
             if (TheVideo.Snippet.Tags is not null)
             {
-                var similarVideosSearchResult = 
+                var similarVideosSearchResult =
                     await _appApiService.SearchVideos(TheVideo.Snippet.Tags.First(), "");
                 var nextPageToken = similarVideosSearchResult.nextPageToken;
                 Console.WriteLine(nextPageToken);
                 SimilarVideos = similarVideosSearchResult.items;
             }
-            
+
             //Get Comments
             await GetComments(videoId);
 
-            VideoSource = "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
-            
+            //Get Stream URL
+            await GetVideoUrl();
+
             //Raise Data Load completed event to the UI
             DataLoaded = true;
 
@@ -84,7 +89,7 @@ public partial class VideoDetailsPageViewModel : AppViewModelBase
             Console.WriteLine(e);
         }
     }
-    
+
     [RelayCommand]
     private async Task UnlikeVideo()
     {
@@ -110,9 +115,9 @@ public partial class VideoDetailsPageViewModel : AppViewModelBase
     [RelayCommand]
     private async Task DownloadVideo()
     {
-        
+        // code goes here
     }
-    
+
     [RelayCommand]
     private async Task SubscribeChannel()
     {
@@ -121,10 +126,51 @@ public partial class VideoDetailsPageViewModel : AppViewModelBase
             "The subscribe to channel option is coming soon, once we implement the OAuth login functionality.",
             "OK");
     }
-    
+
     [RelayCommand]
-    private async Task NavigateToVideoDetailsPage(string videoID)
+    private async Task NavigateToVideoDetailsPage(string videoId)
     {
-        await NavigationService.PushAsync(new VideoDetailsPage(videoID));
+        await NavigationService.PushAsync(new VideoDetailsPage(videoId));
+    }
+
+    private async Task GetVideoUrl()
+    {
+        try
+        {
+            await Task.Run(async () =>
+            {
+                var youtube = new YoutubeClient();
+                var videoUrl = $"https://youtube.com/watch?v={TheVideo.Id}";
+                var streamManifest = await youtube.Videos.Streams.GetManifestAsync(videoUrl);
+
+                // Get highest quality muxed stream
+                var muxedStreams = streamManifest.GetMuxedStreams();
+                var videoPlayerStream =
+                    muxedStreams.First(video => video.VideoQuality.Label is "240p" or "360p" or "480p");
+
+                // Update UI elements or perform any actions with the obtained data
+                Device.BeginInvokeOnMainThread(() => { VideoSource = videoPlayerStream.Url; });
+            });
+        }
+        catch (InternetConnectionException ex)
+        {
+            IsErrorState = true;
+            ErrorMessage = "Slow or no Internet connect." + Environment.NewLine +
+                           "Please check your connection and try again.";
+            ErrorImage = "nointernet.png";
+            Console.WriteLine(ex);
+        }
+        catch (Exception exception)
+        {
+            IsErrorState = true;
+            ErrorMessage =
+                $"Something went wrong. If the problem persists, plz contact support at {Constants.EmailAddress} with the error message:" +
+                Environment.NewLine + Environment.NewLine + exception.Message;
+            ErrorImage = "error.png";
+        }
+        finally
+        {
+            SetDataLoadingIndicators(false);
+        }
     }
 }
