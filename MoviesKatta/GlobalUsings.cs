@@ -23,3 +23,8 @@ global using MoviesKatta.Services;
 global using MoviesKatta.Views;
 global using CommunityToolkit.Maui;
 global using Microsoft.Maui.Controls.Compatibility.Hosting;
+global using YoutubeExplode;
+global using YoutubeExplode.Videos.Streams;
+global using DevExpress.Maui.Controls;
+global using CommunityToolkit.Maui.Alerts;
+global using CommunityToolkit.Maui.Core;

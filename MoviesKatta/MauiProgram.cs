@@ -20,10 +20,11 @@
                 {
 #if ANDROID
                     events.AddAndroid(android =>
-                        android.OnCreate((activity, bundle) => MakeStatusBarTranslucent(activity)));
+                        android.OnCreate((activity, _) => MakeStatusBarTranslucent(activity)));
 
                     static void MakeStatusBarTranslucent(Android.App.Activity activity)
                     {
+                        if (activity.Window == null) return;
                         activity.Window.SetFlags(Android.Views.WindowManagerFlags.LayoutNoLimits,
                             Android.Views.WindowManagerFlags.LayoutNoLimits);
 
@@ -41,19 +42,19 @@
         private static void RegisterServices(IServiceCollection services)
         {
             //Add Platform specific Dependencies
-            services.AddSingleton<IConnectivity>(Connectivity.Current);
+            services.AddSingleton(Connectivity.Current);
 
             //Register Cache Barrel
             Barrel.ApplicationId = Constants.ApplicationId;
-            services.AddSingleton<IBarrel>(Barrel.Current);
+            services.AddSingleton(Barrel.Current);
 
 
             //Register API Service
             services.AddSingleton<IApiService, YoutubeService>();
 
-            //Register FileDownloadService
-            // services.AddSingleton<IDownloadFileService, FileDownloadService>();
-            //
+            // Register FileDownloadService
+             services.AddSingleton<IDownloadFileService, FileDownloadService>();
+            
             // //Register View Models
             services.AddSingleton<StartPageViewModel>();
             services.AddTransient<VideoDetailsPageViewModel>();

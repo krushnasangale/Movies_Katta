@@ -54,7 +54,7 @@
                     </Image.Source>
                 </Image>
             </Frame>
-            
+
             <!-- Play Button -->
             <ImageButton
                 Source="imgplay.png"
@@ -62,7 +62,7 @@
                 WidthRequest="64"
                 VerticalOptions="Center"
                 HorizontalOptions="Center"
-                Clicked="VideoPlayerButton_Clicked"/>
+                Clicked="VideoPlayerButton_Clicked" />
 
             <!-- Duration -->
             <Border
@@ -80,7 +80,7 @@
                     VerticalOptions="Center"
                     VerticalTextAlignment="Center" />
             </Border>
-            
+
             <!-- Media Player -->
             <toolkit:MediaElement x:Name="VideoPlayer"
                                   IsVisible="False"
@@ -88,7 +88,7 @@
                                   ShouldShowPlaybackControls="True"
                                   Source="{Binding VideoSource, Mode=OneWay}"
                                   HeightRequest="300"
-                                  WidthRequest="400"/>
+                                  WidthRequest="400" />
 
             <!-- Video Title -->
             <VerticalStackLayout
@@ -353,6 +353,32 @@
                 FontFamily="MediumFont"
                 BorderWidth="0.5"
                 Clicked="BtnComments_OnClicked" />
+
+            <!-- Progress Bar-->
+            <ContentView
+                IsVisible="{Binding IsDownloading, Mode=OneWay}"
+                Grid.Row="7"
+                VerticalOptions="Fill"
+                HorizontalOptions="Fill"
+                Margin="0,0,0,16">
+
+                <VerticalStackLayout
+                    Spacing="8"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Fill">
+
+                    <ProgressBar
+                        Progress="{Binding ProgressValue, Mode=OneWay}"
+                        HorizontalOptions="Fill" />
+
+                    <Label
+                        Text="{Binding ProgressValue, Mode=OneWay, StringFormat='{0:P1}'}"
+                        HorizontalOptions="Center" />
+
+                </VerticalStackLayout>
+
+            </ContentView>
+
 
             <!-- Bottom sheet -->
             <controls:BottomSheet x:Name="CommentsBottomSheet"

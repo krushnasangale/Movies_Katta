@@ -1,5 +1,5 @@
-﻿using YoutubeExplode;
-using YoutubeExplode.Videos.Streams;
+﻿using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
 
 namespace MoviesKatta.ViewModels;
 
@@ -11,10 +11,15 @@ public partial class VideoDetailsPageViewModel : AppViewModelBase
     [ObservableProperty] private List<Comment> _comments;
     [ObservableProperty] private string _videoSource;
     private IEnumerable<MuxedStreamInfo> streamInfos;
+    [ObservableProperty] private double _progressValue;
+    [ObservableProperty] private bool _isDownloading;
     public event EventHandler DownloadCompleted;
+    private IDownloadFileService _fileDownloadService;
+    private ToastService _toastService = new();
 
-    public VideoDetailsPageViewModel(IApiService apiService) : base(apiService)
+    public VideoDetailsPageViewModel(IApiService apiService, IDownloadFileService fileDownloadService) : base(apiService)
     {
+        _fileDownloadService = fileDownloadService;
         Title = "Movies Katta";
     }
 
@@ -115,8 +120,48 @@ public partial class VideoDetailsPageViewModel : AppViewModelBase
     [RelayCommand]
     private async Task DownloadVideo()
     {
-        // code goes here
+        if (IsDownloading) return;
+
+        var progressIndicator = new Progress<double>(value => ProgressValue = value);
+        var cts = new CancellationTokenSource();
+
+        try
+        {
+            IsDownloading = true;
+
+            // Create a folder in local storage
+            string folderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "DownloadedVideos");
+            Directory.CreateDirectory(folderPath);
+
+            // Get the highest resolution video URL
+            var urlToDownload = streamInfos.OrderByDescending(video => video.VideoResolution.Area).First().Url;
+
+            // Download the file
+            var downloadedFilePath = await _fileDownloadService.DownloadFileAsync(
+                urlToDownload,
+                Path.Combine(folderPath, TheVideo.Snippet.title.CleanCacheKey() + ".mp4"),
+                progressIndicator,
+                cts.Token);
+            
+            await _toastService.ShowToast("Download Completed!");
+
+            // Save the file
+            // await Share.RequestAsync(new ShareFileRequest
+            // {
+            //     File = new ShareFile(downloadedFilePath),
+            //     Title = TheVideo.Snippet.title
+            // });
+        }
+        catch (OperationCanceledException ex)
+        {
+            await _toastService.ShowToast("Download Cancelled. Please try again.");
+        }
+        finally
+        {
+            IsDownloading = false;
+        }
     }
+
 
     [RelayCommand]
     private async Task SubscribeChannel()
@@ -144,9 +189,9 @@ public partial class VideoDetailsPageViewModel : AppViewModelBase
                 var streamManifest = await youtube.Videos.Streams.GetManifestAsync(videoUrl);
 
                 // Get highest quality muxed stream
-                var muxedStreams = streamManifest.GetMuxedStreams();
+                streamInfos = streamManifest.GetMuxedStreams();
                 var videoPlayerStream =
-                    muxedStreams.First(video => video.VideoQuality.Label is "240p" or "360p" or "480p");
+                    streamInfos.First(video => video.VideoQuality.Label is "240p" or "360p" or "480p");
 
                 // Update UI elements or perform any actions with the obtained data
                 Device.BeginInvokeOnMainThread(() => { VideoSource = videoPlayerStream.Url; });

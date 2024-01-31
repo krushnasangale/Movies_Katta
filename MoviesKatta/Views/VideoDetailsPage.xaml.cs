@@ -1,6 +1,4 @@
-﻿using DevExpress.Maui.Controls;
-
-namespace MoviesKatta.Views;
+﻿namespace MoviesKatta.Views;
 
 public partial class VideoDetailsPage
 {
