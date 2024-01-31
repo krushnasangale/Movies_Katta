@@ -1,6 +1,6 @@
 ﻿namespace MoviesKatta.Views.Base;
 
-public partial class PageBase : ContentPage
+public partial class PageBase 
 {
     public IList<IView> PageContent => PageContentGrid.Children;
     public IList<IView> PageIcons => PageIconsGrid.Children;

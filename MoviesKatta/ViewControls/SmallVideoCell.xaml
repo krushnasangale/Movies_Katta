@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:MoviesKatta.Models"
+             xmlns:core="clr-namespace:DevExpress.Maui.Core;assembly=DevExpress.Maui.Core"
+             x:DataType="models:Item"
+             xmlns:viewModels="clr-namespace:MoviesKatta.ViewModels"
+             x:Class="MoviesKatta.ViewControls.SmallVideoCell">
+
+    <Border
+        Stroke="{core:ThemeColor OnSurface}"
+        StrokeShape="RoundRectangle 12"
+        Padding="6">
+
+        <Border.GestureRecognizers>
+            <TapGestureRecognizer
+                Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:VideoDetailsPageViewModel}}, Path=NavigateToVideoDetailsPageCommand, Mode=OneWay}"
+                CommandParameter="{Binding id.videoId}" />
+        </Border.GestureRecognizers>
+
+        <Grid RowSpacing="12"
+              RowDefinitions="*,Auto">
+
+            <!-- Thumbnail -->
+            <Frame
+                Grid.Row="0"
+                HasShadow="False"
+                CornerRadius="8"
+                HorizontalOptions="Fill"
+                VerticalOptions="Fill"
+                IsClippedToBounds="True"
+                Padding="0"
+                HeightRequest="210"
+                Margin="0,0,2,2">
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer
+                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:VideoDetailsPageViewModel}}, Path=NavigateToVideoDetailsPageCommand, Mode=OneWay}"
+                        CommandParameter="{Binding id.videoId}" />
+                </Frame.GestureRecognizers>
+                <Image
+                    HeightRequest="200"
+                    WidthRequest="100"
+                    HorizontalOptions="Fill"
+                    VerticalOptions="Fill"
+                    Aspect="AspectFill">
+                    <Image.Source>
+                        <UriImageSource
+                            Uri="{Binding snippet.thumbnails.high.url, Mode=OneWay}"
+                            CacheValidity="1:00:00.0" />
+                    </Image.Source>
+                </Image>
+            </Frame>
+
+            <!-- Video Details -->
+            <Label
+                Grid.Row="1"
+                LineBreakMode="WordWrap"
+                VerticalOptions="Fill"
+                MaxLines="2"
+                Text="{Binding snippet.title, Mode=OneWay}" />
+        </Grid>
+    </Border>
+</ContentView>

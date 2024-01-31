@@ -61,25 +61,37 @@
             </controls:SimpleButton>
             <!--Clicked="HamburgerButton_Clicked"-->
 
-            <ImageButton
-                HeightRequest="25"
-                WidthRequest="25"
-                x:Name="NavigateBackButton"
-                Source="icnback.png"
-                VerticalOptions="Center"
-                HorizontalOptions="Start"
-                Grid.Column="0"
-                Command="{Binding NavigateBackCommand, Mode=OneWay}" />
+            <controls:SimpleButton HeightRequest="50" CornerRadius="10"
+                                   BorderColor="Transparent"
+                                   BackgroundColor="Transparent"
+                                   Grid.Column="0" 
+                                   PressedBorderColor="Transparent"
+                                   Command="{Binding NavigateBackCommand, Mode=OneWay}">
+                <core:DXImage Style="{StaticResource FilledButtonTextImageWhiteDark}"
+                              HeightRequest="25"
+                              WidthRequest="25"
+                              x:Name="NavigateBackButton"
+                              Source="icnback.png"
+                              VerticalOptions="Center"
+                              HorizontalOptions="Start">
+                </core:DXImage>
+            </controls:SimpleButton>
 
-            <ImageButton
-                HeightRequest="25"
-                WidthRequest="25"
-                x:Name="CloseButton"
-                Source="icnclose.png"
-                VerticalOptions="Center"
-                HorizontalOptions="Start"
-                Grid.Column="0"
-                Command="{Binding CloseModalCommand, Mode=OneWay}" />
+            <controls:SimpleButton HeightRequest="50" CornerRadius="10"
+                                   BorderColor="Transparent"
+                                   BackgroundColor="Transparent"
+                                   Grid.Column="0" 
+                                   PressedBorderColor="Transparent"
+                                   Command="{Binding CloseModalCommand, Mode=OneWay}">
+                <core:DXImage Style="{StaticResource FilledButtonTextImageWhiteDark}"
+                              HeightRequest="25"
+                              WidthRequest="25"
+                              x:Name="CloseButton"
+                              Source="icnclose.png"
+                              VerticalOptions="Center"
+                              HorizontalOptions="Start">
+                </core:DXImage>
+            </controls:SimpleButton>
 
             <!-- Page Header Label -->
             <Label
@@ -102,7 +114,5 @@
                 HorizontalOptions="End" />
 
         </Grid>
-
     </Grid>
-
 </ContentPage>

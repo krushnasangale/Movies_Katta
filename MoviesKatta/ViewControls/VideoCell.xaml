@@ -3,6 +3,7 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:models="clr-namespace:MoviesKatta.Models"
+             xmlns:viewModels="clr-namespace:MoviesKatta.ViewModels"
              xmlns:core="clr-namespace:DevExpress.Maui.Core;assembly=DevExpress.Maui.Core"
              x:DataType="models:Item"
              x:Name="VideoCellRoot"
@@ -12,11 +13,11 @@
         StrokeShape="RoundRectangle 12"
         Padding="6">
 
-        <!-- <Border.GestureRecognizers> -->
-        <!--     <TapGestureRecognizer -->
-        <!--         Command="{Binding Path=NavigateToVideoDetailsPageCommand, Source={RelativeSource AncestorType={x:Type viewModels:StartPageViewModel}}, Mode=OneWay}" -->
-        <!--         CommandParameter="{Binding id.videoId}" /> -->
-        <!-- </Border.GestureRecognizers> -->
+        <Border.GestureRecognizers>
+            <TapGestureRecognizer
+                Command="{Binding Path=NavigateToVideoDetailsPageCommand, Source={RelativeSource AncestorType={x:Type viewModels:StartPageViewModel}}, Mode=OneWay}"
+                CommandParameter="{Binding id.videoId}" />
+        </Border.GestureRecognizers>
 
         <Grid
             RowSpacing="12"
@@ -33,6 +34,11 @@
                 Padding="0"
                 HeightRequest="210"
                 Margin="0,0,2,2">
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer
+                        Command="{Binding Path=NavigateToVideoDetailsPageCommand, Source={RelativeSource AncestorType={x:Type viewModels:StartPageViewModel}}, Mode=OneWay}"
+                        CommandParameter="{Binding id.videoId}" />
+                </Frame.GestureRecognizers>
                 <Image
                     HorizontalOptions="Fill"
                     VerticalOptions="Fill"

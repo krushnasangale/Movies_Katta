@@ -1,0 +1,23 @@
+
+W
+'MoviesKatta/Views/VideoDetailsPage.xaml,5\b\5b500d2ecefd05eca1a45e667dac474937886b72
+Z
+*MoviesKatta/Views/VideoDetailsPage.xaml.cs,b\c\bcdc115b27a66934f60438cb32a37fa09f9ad33f
+J
+MoviesKatta/MauiProgram.cs,5\7\57ac733f3e61670fb4e1df8827d184b29776f3ea
+\
+,MoviesKatta/ViewModels/StartPageViewModel.cs,d\4\d484edb8fe53a82a9f7abb19512267734f222ab2
+c
+3MoviesKatta/ViewModels/VideoDetailsPageViewModel.cs,c\8\c8176f708dd63bde6e623db20ee5e6ebf2356475
+K
+MoviesKatta/GlobalUsings.cs,0\5\052687b88a3cb141200a6b2a815438f3562f03bb
+]
+-MoviesKatta/IServices/IDownloadFileService.cs,c\6\c67442042affc3dfb77764fd27c89cc64d8176ae
+[
++MoviesKatta/Services/FileDownloadService.cs,a\2\a291880685490f8e2c896076ca1f02168df4af4c
+T
+$MoviesKatta/Services/ToastService.cs,3\2\32a42c2951a038f16e958558e009c1d9f9b9eb94
+P
+ MoviesKatta/Views/StartPage.xaml,3\4\3427e5ba27469ef1c3d8231ac0b10912220365be
+a
+1MoviesKatta/Platforms/Android/AndroidManifest.xml,4\a\4a8337da1fd815ad963b75fdbb635c53f142d4a2

@@ -29,4 +29,18 @@ public class YoutubeService : RestServiceBase, IApiService
         var result = await GetAsync<ChannelSearchResult>(resourceUri, 4);
         return result;
     }
+
+    public async Task<YoutubeVideoDetail> GetVideoDetails(string videoId)
+    {
+        var resourceUri = $"videos?part=contentDetails,id,snippet,statistics&key={Constants.ApiKey}&id={videoId}";
+        var result = await GetAsync<VideoDetailsResult>(resourceUri, 24); //Cached for 24 hours
+        return result.Items.First();
+    }
+
+    public async Task<CommentsSearchResult> GetComments(string videoId)
+    {
+        var resourceUri = $"commentThreads?part=snippet&maxResults=100&key={Constants.ApiKey}&videoId={videoId}";
+        var result = await GetAsync<CommentsSearchResult>(resourceUri, 4); //Cached for 4 hours
+        return result;
+    }
 }

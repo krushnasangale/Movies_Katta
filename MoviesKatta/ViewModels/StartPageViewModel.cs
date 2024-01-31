@@ -3,7 +3,7 @@
 public partial class StartPageViewModel : AppViewModelBase
 {
     [ObservableProperty] string _nextToken = string.Empty;
-    [ObservableProperty] string _searchTerm = "Trending videos";
+    [ObservableProperty] string _searchTerm = "Bollywood songs";
     [ObservableProperty] ObservableCollection<Item> _youtubeVideos;
     [ObservableProperty] bool _isLoadingMore;
 
@@ -89,5 +89,11 @@ public partial class StartPageViewModel : AppViewModelBase
         NextToken = string.Empty;
         SearchTerm = searchQuery.Trim();
         await Search();
+    }
+
+    [RelayCommand]
+    private async Task NavigateToVideoDetailsPage(string videoId)
+    {
+        await NavigationService.PushAsync(new VideoDetailsPage(videoId), false);
     }
 }

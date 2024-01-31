@@ -1,6 +1,4 @@
-﻿using CommunityToolkit.Mvvm.Input;
-
-namespace MoviesKatta.ViewModels.Base;
+﻿namespace MoviesKatta.ViewModels.Base;
 
 public partial class AppViewModelBase : ViewModelBase
 {
@@ -17,7 +15,7 @@ public partial class AppViewModelBase : ViewModelBase
     [RelayCommand]
     private async Task NavigateBack() =>
         await NavigationService.PopAsync();
-    
+
     [RelayCommand]
     private async Task CloseModal() =>
         await NavigationService.PopModalAsync();
