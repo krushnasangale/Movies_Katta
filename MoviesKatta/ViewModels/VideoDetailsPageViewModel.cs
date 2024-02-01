@@ -123,7 +123,7 @@ public partial class VideoDetailsPageViewModel : AppViewModelBase
         if (IsDownloading) return;
 
         var progressIndicator = new Progress<double>(value => ProgressValue = value);
-        var cts = new CancellationTokenSource();
+        var cancellationToken = new CancellationTokenSource().Token;
 
         try
         {
@@ -140,16 +140,16 @@ public partial class VideoDetailsPageViewModel : AppViewModelBase
             var downloadedFilePath = await _fileDownloadService.DownloadFileAsync(
                 urlToDownload,
                 Path.Combine(folderPath, TheVideo.Snippet.title.CleanCacheKey() + ".mp4"),
-                progressIndicator,
-                cts.Token);
+                progressIndicator, cancellationToken);
             
+            // save file in local storage
             await _toastService.ShowToast("Download Completed!");
 
             // Save the file
             await Share.RequestAsync(new ShareFileRequest
             {
                 File = new ShareFile(downloadedFilePath),
-                Title = TheVideo.Snippet.title
+                Title = TheVideo.Snippet.title,
             });
         }
         catch (OperationCanceledException ex)
