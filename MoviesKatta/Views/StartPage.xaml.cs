@@ -24,8 +24,8 @@ public partial class StartPage
         ItemsHeight = 60d + (width - LstVideos.Margin.Right - LstVideos.Margin.Left) / 1.8d;
     }
 
-    async void SearchBar_OnCompleted(object sender, EventArgs e)
-    {
-        await ViewModel.SearchVideosCommand.ExecuteAsync(SearchBar.Text);
-    }
+    //async void SearchBar_OnCompleted(object sender, EventArgs e)
+    //{
+    //    await ViewModel.SearchVideosCommand.ExecuteAsync(SearchBar.Text);
+    //}
 }

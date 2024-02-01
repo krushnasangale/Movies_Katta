@@ -51,9 +51,6 @@ public partial class VideoDetailsPageViewModel : AppViewModelBase
             //Get Comments
             await GetComments(videoId);
 
-            //Get Stream URL
-            await GetVideoUrl();
-
             //Raise Data Load completed event to the UI
             DataLoaded = true;
 
@@ -178,7 +175,7 @@ public partial class VideoDetailsPageViewModel : AppViewModelBase
         await NavigationService.PushAsync(new VideoDetailsPage(videoId));
     }
 
-    private async Task GetVideoUrl()
+    public async Task GetVideoUrl()
     {
         try
         {

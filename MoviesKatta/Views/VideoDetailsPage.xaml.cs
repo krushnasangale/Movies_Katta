@@ -81,8 +81,9 @@ public partial class VideoDetailsPage
         CommentsBottomSheet.HalfExpandedRatio = 0.6;
         CommentsBottomSheet.State = BottomSheetState.HalfExpanded;
     }
-    void VideoPlayerButton_Clicked(Object sender, EventArgs e)
+    async void VideoPlayerButton_Clicked(Object sender, EventArgs e)
     {
+        await ViewModel.GetVideoUrl();
         VideoPlayer.IsVisible = true;
         VideoPlayer.Play();
     }
