@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 
 <baseViews:ViewBase
     x:Class="MoviesKatta.Views.StartPage"
@@ -37,19 +37,37 @@
 
     <!--  page content  -->
     <baseViews:ViewBase.PageContent>
-        <collectionView:DXCollectionView
-            x:Name="LstVideos"
-            IsLoadMoreEnabled="True"
-            IsRefreshing="{Binding IsLoadingMore}"
-            IsScrollBarVisible="False"
-            ItemSpacing="10"
-            ItemsSource="{Binding YoutubeVideos}"
-            LoadMoreCommand="{Binding LoadMoreVideosCommand}">
-            <collectionView:DXCollectionView.ItemTemplate>
-                <DataTemplate x:DataType="models:Item">
-                    <viewControls:VideoCell HorizontalOptions="Fill" VerticalOptions="Fill" />
-                </DataTemplate>
-            </collectionView:DXCollectionView.ItemTemplate>
-        </collectionView:DXCollectionView>
+        <VerticalStackLayout>
+            <editors:TextEdit EndIcon="collectionview_crud_search"
+                              x:Name="SearchBar"
+                              PlaceholderText="Search..."
+                              TextFontSize="14"
+                              ClearIconColor="{core:ThemeColor OnSurfaceVariant}"
+                              TextVerticalAlignment="Center"
+                              BackgroundColor="{core:ThemeColor SurfaceContainerHighest}"
+                              BorderThickness="0" BoxPadding="20,8,10,8"
+                              PlaceholderColor="{core:ThemeColor OnSurfaceVariant}"
+                              EndIconColor="{core:ThemeColor OnSurfaceVariant}"
+                              FocusedBorderThickness="0" CornerRadius="19" HeightRequest="38"
+                              Margin="0,0,0,10"
+                              Completed="SearchBar_OnCompleted"
+                              EndIconCommand="{Binding SearchVideosCommand}"
+                              EndIconCommandParameter="{Binding Path=Text, Source={x:Reference SearchBar}, Mode=OneWay}" />
+
+            <collectionView:DXCollectionView
+                x:Name="LstVideos"
+                IsLoadMoreEnabled="True"
+                IsRefreshing="{Binding IsLoadingMore}"
+                IsScrollBarVisible="False"
+                ItemSpacing="10"
+                ItemsSource="{Binding YoutubeVideos}"
+                LoadMoreCommand="{Binding LoadMoreVideosCommand}">
+                <collectionView:DXCollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:Item">
+                        <viewControls:VideoCell HorizontalOptions="Fill" VerticalOptions="Fill" />
+                    </DataTemplate>
+                </collectionView:DXCollectionView.ItemTemplate>
+            </collectionView:DXCollectionView>
+        </VerticalStackLayout>
     </baseViews:ViewBase.PageContent>
 </baseViews:ViewBase>

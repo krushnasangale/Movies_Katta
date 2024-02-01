@@ -132,4 +132,9 @@ public partial class PageBase
         //Set Content Display Mode
         SetContentDisplayMode(ContentDisplayMode.NoNavigationBar);
     }
+
+    private void NavigateBackButton_OnClicked(object sender, EventArgs e)
+    {
+        Application.Current!.MainPage!.Navigation.PopAsync(false);
+    }
 }

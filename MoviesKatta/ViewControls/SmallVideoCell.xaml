@@ -39,8 +39,6 @@
                         CommandParameter="{Binding id.videoId}" />
                 </Frame.GestureRecognizers>
                 <Image
-                    HeightRequest="200"
-                    WidthRequest="100"
                     HorizontalOptions="Fill"
                     VerticalOptions="Fill"
                     Aspect="AspectFill">

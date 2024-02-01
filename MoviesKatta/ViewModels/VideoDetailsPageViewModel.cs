@@ -13,6 +13,7 @@ public partial class VideoDetailsPageViewModel : AppViewModelBase
     private IEnumerable<MuxedStreamInfo> streamInfos;
     [ObservableProperty] private double _progressValue;
     [ObservableProperty] private bool _isDownloading;
+    [ObservableProperty] private string _videoId;
     public event EventHandler DownloadCompleted;
     private IDownloadFileService _fileDownloadService;
     private ToastService _toastService = new();
@@ -25,14 +26,15 @@ public partial class VideoDetailsPageViewModel : AppViewModelBase
 
     public override async void OnNavigatedTo(object parameters)
     {
-        var videoId = (string)parameters;
+        await Task.Delay(500);
+        VideoId = (string)parameters;
         SetDataLoadingIndicators();
         LoadingText = "Hold on while we load the video details...";
         try
         {
             SimilarVideos = new();
             //Get Video Details
-            TheVideo = await _appApiService.GetVideoDetails(videoId);
+            TheVideo = await _appApiService.GetVideoDetails(VideoId);
 
             //Get Channel URL and set in the video
             var channelSearchResult = await _appApiService.GetChannels(TheVideo.Snippet.channelId);
@@ -47,9 +49,6 @@ public partial class VideoDetailsPageViewModel : AppViewModelBase
                 Console.WriteLine(nextPageToken);
                 SimilarVideos = similarVideosSearchResult.items;
             }
-
-            //Get Comments
-            await GetComments(videoId);
 
             //Raise Data Load completed event to the UI
             DataLoaded = true;
@@ -79,11 +78,11 @@ public partial class VideoDetailsPageViewModel : AppViewModelBase
         }
     }
 
-    private async Task GetComments(string videoId)
+    public async Task GetComments()
     {
         try
         {
-            var commentsSearchResult = await _appApiService.GetComments(videoId);
+            var commentsSearchResult = await _appApiService.GetComments(VideoId);
             Comments = commentsSearchResult.Items;
         }
         catch (Exception e)

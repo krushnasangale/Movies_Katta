@@ -45,6 +45,7 @@
 
             <!--  Icons for Left Side  -->
             <controls:SimpleButton
+                x:Name="HamburgerButton"
                 Grid.Column="0"
                 BackgroundColor="Transparent"
                 BorderColor="Transparent"
@@ -52,7 +53,6 @@
                 HeightRequest="50"
                 PressedBorderColor="Transparent">
                 <core:DXImage
-                    x:Name="HamburgerButton"
                     HeightRequest="25"
                     HorizontalOptions="Start"
                     Source="icnhamburger.png"
@@ -63,15 +63,15 @@
             <!--  Clicked="HamburgerButton_Clicked"  -->
 
             <controls:SimpleButton
+                x:Name="NavigateBackButton"
                 Grid.Column="0"
                 BackgroundColor="Transparent"
                 BorderColor="Transparent"
-                Command="{Binding NavigateBackCommand, Mode=OneWay}"
+                Clicked="NavigateBackButton_OnClicked"
                 CornerRadius="10"
                 HeightRequest="50"
                 PressedBorderColor="Transparent">
                 <core:DXImage
-                    x:Name="NavigateBackButton"
                     HeightRequest="25"
                     HorizontalOptions="Start"
                     Source="icnback.png"
@@ -82,14 +82,13 @@
 
             <controls:SimpleButton
                 Grid.Column="0"
+                x:Name="CloseButton"
                 BackgroundColor="Transparent"
                 BorderColor="Transparent"
-                Command="{Binding CloseModalCommand, Mode=OneWay}"
                 CornerRadius="10"
                 HeightRequest="50"
                 PressedBorderColor="Transparent">
                 <core:DXImage
-                    x:Name="CloseButton"
                     HeightRequest="25"
                     HorizontalOptions="Start"
                     Source="icnclose.png"
