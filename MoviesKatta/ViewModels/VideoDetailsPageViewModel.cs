@@ -6,6 +6,7 @@ namespace MoviesKatta.ViewModels;
 public partial class VideoDetailsPageViewModel : AppViewModelBase
 {
     [ObservableProperty] private YoutubeVideoDetail _theVideo;
+    [ObservableProperty] string _nextToken = string.Empty;
     [ObservableProperty] private List<Item> _similarVideos;
     [ObservableProperty] private Channel _theChannel;
     [ObservableProperty] private List<Comment> _comments;
@@ -17,6 +18,7 @@ public partial class VideoDetailsPageViewModel : AppViewModelBase
     public event EventHandler DownloadCompleted;
     private IDownloadFileService _fileDownloadService;
     private ToastService _toastService = new();
+    [ObservableProperty] bool _isLoadingMore;
 
     public VideoDetailsPageViewModel(IApiService apiService, IDownloadFileService fileDownloadService) : base(apiService)
     {
@@ -43,11 +45,12 @@ public partial class VideoDetailsPageViewModel : AppViewModelBase
             //Find Similar Videos
             if (TheVideo.Snippet.Tags is not null)
             {
-                var similarVideosSearchResult =
-                    await _appApiService.SearchVideos(TheVideo.Snippet.Tags.First(), "");
-                var nextPageToken = similarVideosSearchResult.nextPageToken;
-                Console.WriteLine(nextPageToken);
-                SimilarVideos = similarVideosSearchResult.items;
+                await GetYoutubeVideo(TheVideo.Snippet.Tags.First(), "");
+            }
+            else
+            {
+                var searchText = Preferences.Get("SearchQueryText", string.Empty);
+                await GetYoutubeVideo(searchText, "");
             }
 
             //Raise Data Load completed event to the UI
@@ -120,15 +123,16 @@ public partial class VideoDetailsPageViewModel : AppViewModelBase
 
         var progressIndicator = new Progress<double>(value => ProgressValue = value);
         var cancellationToken = new CancellationTokenSource().Token;
-
         try
         {
             IsDownloading = true;
 
             // Create a folder in local storage
-            string folderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "DownloadedVideos");
+            string folderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                "DownloadedVideos");
             Directory.CreateDirectory(folderPath);
 
+            if (streamInfos is null) await GetVideoUrl();
             // Get the highest resolution video URL
             var urlToDownload = streamInfos.OrderByDescending(video => video.VideoResolution.Area).First().Url;
 
@@ -137,7 +141,7 @@ public partial class VideoDetailsPageViewModel : AppViewModelBase
                 urlToDownload,
                 Path.Combine(folderPath, TheVideo.Snippet.title.CleanCacheKey() + ".mp4"),
                 progressIndicator, cancellationToken);
-            
+
             // save file in local storage
             await _toastService.ShowToast("Download Completed!");
 
@@ -149,6 +153,10 @@ public partial class VideoDetailsPageViewModel : AppViewModelBase
             });
         }
         catch (OperationCanceledException ex)
+        {
+            await _toastService.ShowToast("Download Cancelled. Please try again.");
+        }
+        catch (Exception exception)
         {
             await _toastService.ShowToast("Download Cancelled. Please try again.");
         }
@@ -213,5 +221,22 @@ public partial class VideoDetailsPageViewModel : AppViewModelBase
         {
             SetDataLoadingIndicators(false);
         }
+    }
+
+    [RelayCommand]
+    private async Task LoadMoreVideos()
+    {
+        if (string.IsNullOrEmpty(NextToken)) return;
+        IsLoadingMore = true;
+        await Task.Delay(500);
+        await GetYoutubeVideo(TheVideo.Snippet.Tags.First(), NextToken);
+        IsLoadingMore = false;
+    }
+    private async Task GetYoutubeVideo(string searchQuery, string nextToken)
+    {
+        var similarVideosSearchResult =
+            await _appApiService.SearchVideos(searchQuery, nextToken);
+        NextToken = similarVideosSearchResult.nextPageToken;
+        SimilarVideos = similarVideosSearchResult.items;
     }
 }

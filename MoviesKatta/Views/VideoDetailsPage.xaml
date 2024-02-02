@@ -1,244 +1,311 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 
-<baseViews:ViewBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                    xmlns:baseViews="clr-namespace:MoviesKatta.Views.Base"
-                    xmlns:viewModels="clr-namespace:MoviesKatta.ViewModels"
-                    xmlns:core="clr-namespace:DevExpress.Maui.Core;assembly=DevExpress.Maui.Core"
-                    xmlns:viewControls="clr-namespace:MoviesKatta.ViewControls"
-                    xmlns:converters="clr-namespace:Maui.Apps.Framework.Converters;assembly=Maui.Apps.Framework"
-                    xmlns:controls="clr-namespace:DevExpress.Maui.Controls;assembly=DevExpress.Maui.Controls"
-                    xmlns:models="clr-namespace:MoviesKatta.Models"
-                    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-                    xmlns:collectionView="clr-namespace:DevExpress.Maui.CollectionView;assembly=DevExpress.Maui.CollectionView"
-                    x:TypeArguments="viewModels:VideoDetailsPageViewModel"
-                    x:DataType="viewModels:VideoDetailsPageViewModel"
-                    PageTitle="{Binding Title, Mode=OneWay}"
-                    PageMode="Navigate"
-                    ContentDisplayMode="NavigationBar"
-                    x:Name="DetailsPage"
-                    x:Class="MoviesKatta.Views.VideoDetailsPage">
+<baseViews:ViewBase
+    x:Class="MoviesKatta.Views.VideoDetailsPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:baseViews="clr-namespace:MoviesKatta.Views.Base"
+    xmlns:collectionView="clr-namespace:DevExpress.Maui.CollectionView;assembly=DevExpress.Maui.CollectionView"
+    xmlns:controls="clr-namespace:DevExpress.Maui.Controls;assembly=DevExpress.Maui.Controls"
+    xmlns:converters="clr-namespace:Maui.Apps.Framework.Converters;assembly=Maui.Apps.Framework"
+    xmlns:core="clr-namespace:DevExpress.Maui.Core;assembly=DevExpress.Maui.Core"
+    xmlns:models="clr-namespace:MoviesKatta.Models"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:viewControls="clr-namespace:MoviesKatta.ViewControls"
+    xmlns:viewModels="clr-namespace:MoviesKatta.ViewModels"
+    x:Name="DetailsPage"
+    x:DataType="viewModels:VideoDetailsPageViewModel"
+    x:TypeArguments="viewModels:VideoDetailsPageViewModel"
+    ContentDisplayMode="NavigationBar"
+    PageMode="Navigate"
+    PageTitle="{Binding Title, Mode=OneWay}">
 
     <baseViews:ViewBase.Resources>
         <converters:EnumerationContainsElementConverter x:Key="CvtVisibleOnItemCount" />
     </baseViews:ViewBase.Resources>
 
-    <!-- page content -->
+    <!--  page content  -->
     <baseViews:ViewBase.PageContent>
-        <Grid RowDefinitions="220,*,50"
-              RowSpacing="12"
-              Margin="0"
-              Padding="0"
-              IsVisible="{Binding DataLoaded, Mode=OneWay}"
-              IgnoreSafeArea="True">
+        <Grid
+            Margin="0"
+            Padding="0"
+            IgnoreSafeArea="True"
+            IsVisible="{Binding DataLoaded, Mode=OneWay}"
+            RowDefinitions="220,*,20"
+            RowSpacing="12">
 
-            <!-- Poster Image -->
+            <!--  Poster Image  -->
             <Frame
                 x:Name="HeaderView"
-                Padding="0"
-                Margin="0"
-                HasShadow="False"
-                CornerRadius="8"
                 Grid.Row="0"
-                VerticalOptions="Fill"
+                Margin="0"
+                Padding="0"
                 BorderColor="{core:ThemeColor OnSurface}"
-                HorizontalOptions="Fill">
-                <Image VerticalOptions="Fill"
-                       HorizontalOptions="Fill"
-                       Aspect="AspectFill"
-                       Margin="0">
+                CornerRadius="8"
+                HasShadow="False"
+                HorizontalOptions="Fill"
+                VerticalOptions="Fill">
+                <Image
+                    Margin="0"
+                    Aspect="AspectFill"
+                    HorizontalOptions="Fill"
+                    VerticalOptions="Fill">
                     <Image.Source>
-                        <UriImageSource
-                            Uri="{Binding TheVideo.Snippet.thumbnails.high.url, Mode=OneWay}"
-                            CacheValidity="1:00:00.0" />
+                        <UriImageSource CacheValidity="1:00:00.0" Uri="{Binding TheVideo.Snippet.thumbnails.high.url, Mode=OneWay}" />
                     </Image.Source>
                 </Image>
             </Frame>
 
-            <!-- Play Button -->
+            <!--  Play Button  -->
             <ImageButton
                 x:Name="PlayButton"
-                Source="imgplay.png"
-                HeightRequest="64"
-                WidthRequest="64"
                 Grid.Row="0"
-                VerticalOptions="Center"
+                Clicked="VideoPlayerButton_Clicked"
+                HeightRequest="64"
                 HorizontalOptions="Center"
-                Clicked="VideoPlayerButton_Clicked" />
+                Source="imgplay.png"
+                VerticalOptions="Center"
+                WidthRequest="64" />
 
-            <!-- Duration -->
+            <!--  Duration  -->
             <Border
                 x:Name="Duration"
-                VerticalOptions="End"
-                HorizontalOptions="End"
                 Grid.Row="0"
+                Padding="5,0"
                 BackgroundColor="Black"
                 HeightRequest="15"
+                HorizontalOptions="End"
                 Stroke="Transparent"
+                StrokeShape="RoundRectangle 4"
                 StrokeThickness="0"
-                StrokeShape="RoundRectangle 4">
+                VerticalOptions="End">
                 <Label
                     Text="{Binding TheVideo.VideoDuration, Mode=OneWay}"
                     VerticalOptions="Center"
                     VerticalTextAlignment="Center" />
             </Border>
 
-            <!-- Media Player -->
-            <toolkit:MediaElement x:Name="VideoPlayer"
-                                  HorizontalOptions="Fill"
-                                  VerticalOptions="Fill"
-                                  IsVisible="False"
-                                  ShouldAutoPlay="False"
-                                  ShouldShowPlaybackControls="True"
-                                  Source="{Binding VideoSource, Mode=OneWay}" />
+            <!--  Media Player  -->
+            <toolkit:MediaElement
+                x:Name="VideoPlayer"
+                HorizontalOptions="Fill"
+                IsVisible="False"
+                ShouldAutoPlay="False"
+                ShouldShowPlaybackControls="True"
+                Source="{Binding VideoSource, Mode=OneWay}"
+                VerticalOptions="Fill" />
 
-            <ActivityIndicator x:Name="VideoIndicator"
-                               IsVisible="False"
-                               VerticalOptions="Center"
-                               HorizontalOptions="Center"
-                               HeightRequest="45"
-                               WidthRequest="45"
-                               Color="{core:ThemeColor OnSurface}" />
-            <ScrollView Grid.Row="1"
-                        Grid.RowSpan="2"
-                        VerticalScrollBarVisibility="Never">
-                <VerticalStackLayout
-                    Margin="16,0">
+            <ActivityIndicator
+                x:Name="VideoIndicator"
+                HeightRequest="45"
+                HorizontalOptions="Center"
+                IsVisible="False"
+                VerticalOptions="Center"
+                WidthRequest="45"
+                Color="{core:ThemeColor OnSurface}" />
+            <ScrollView
+                Grid.Row="1"
+                Grid.RowSpan="2"
+                VerticalScrollBarVisibility="Never">
+                <VerticalStackLayout Margin="16,0">
 
-                    <!-- Video Title -->
+                    <!--  Video Title  -->
                     <VerticalStackLayout
                         x:Name="VideoTitle"
                         HorizontalOptions="Fill"
                         Opacity="0"
                         Spacing="2">
-                        <Label Text="{Binding TheVideo.Snippet.title}"
-                               FontAttributes="Bold" />
-                        <Label Text="{Binding TheVideo.VideoSubtitle}"
-                               FontSize="12" />
+                        <Label FontAttributes="Bold" Text="{Binding TheVideo.Snippet.title}" />
+                        <Label FontSize="12" Text="{Binding TheVideo.VideoSubtitle}" />
                     </VerticalStackLayout>
 
-                    <!-- Icons -->
+                    <!--  Icons  -->
                     <FlexLayout
                         x:Name="VideoIcons"
-                        HorizontalOptions="Fill"
-                        Opacity="0"
-                        Direction="Row"
-                        JustifyContent="SpaceBetween"
+                        Margin="0,8"
                         AlignContent="Stretch"
-                        Margin="0,8">
+                        Direction="Row"
+                        HorizontalOptions="Fill"
+                        JustifyContent="SpaceBetween"
+                        Opacity="0">
 
-                        <!-- Likes -->
-                        <HorizontalStackLayout
-                            Spacing="6"
-                            VerticalOptions="Center">
+                        <!--  Likes  -->
+                        <HorizontalStackLayout Spacing="6" VerticalOptions="Center">
                             <core:DXImage
-                                TintColor="{core:ThemeColor OnSurface}"
+                                HeightRequest="16"
                                 Source="imglike.png"
-                                WidthRequest="16"
-                                HeightRequest="16" />
+                                TintColor="{core:ThemeColor OnSurface}"
+                                WidthRequest="16" />
                             <Label Text="{Binding TheVideo.LikesCount, Mode=OneWay}" />
                         </HorizontalStackLayout>
 
-                        <!-- Dislikes -->
-                        <HorizontalStackLayout
-                            Spacing="6"
-                            VerticalOptions="Center">
+                        <!--  Dislikes  -->
+                        <HorizontalStackLayout Spacing="6" VerticalOptions="Center">
                             <HorizontalStackLayout.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding UnlikeVideoCommand, Mode=OneWay}" />
                             </HorizontalStackLayout.GestureRecognizers>
                             <core:DXImage
-                                TintColor="{core:ThemeColor OnSurface}"
-                                Source="imglike.png"
+                                HeightRequest="16"
                                 Rotation="180"
-                                WidthRequest="16"
-                                HeightRequest="16" />
+                                Source="imglike.png"
+                                TintColor="{core:ThemeColor OnSurface}"
+                                WidthRequest="16" />
                             <Label Text="Unlike" />
                         </HorizontalStackLayout>
 
-                        <!-- Share -->
-                        <HorizontalStackLayout
-                            Spacing="6"
-                            VerticalOptions="Center">
+                        <!--  Share  -->
+                        <HorizontalStackLayout Spacing="6" VerticalOptions="Center">
                             <HorizontalStackLayout.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding ShareVideoCommand, Mode=OneWay}" />
                             </HorizontalStackLayout.GestureRecognizers>
                             <core:DXImage
-                                TintColor="{core:ThemeColor OnSurface}"
+                                HeightRequest="16"
                                 Source="imgshare.png"
-                                WidthRequest="16"
-                                HeightRequest="16" />
+                                TintColor="{core:ThemeColor OnSurface}"
+                                WidthRequest="16" />
                             <Label Text="Share" />
                         </HorizontalStackLayout>
 
-                        <!-- Download -->
-                        <HorizontalStackLayout
-                            Spacing="6"
-                            VerticalOptions="Center">
+                        <!--  Download  -->
+                        <HorizontalStackLayout Spacing="6" VerticalOptions="Center">
                             <HorizontalStackLayout.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding DownloadVideoCommand, Mode=OneWay}" />
                             </HorizontalStackLayout.GestureRecognizers>
                             <core:DXImage
-                                TintColor="{core:ThemeColor OnSurface}"
+                                HeightRequest="16"
                                 Source="imgdownload.png"
-                                WidthRequest="16"
-                                HeightRequest="16" />
+                                TintColor="{core:ThemeColor OnSurface}"
+                                WidthRequest="16" />
                             <Label Text="Download" />
                         </HorizontalStackLayout>
                     </FlexLayout>
 
-                    <!-- Comments Dropdown -->
+
+                    <!--  Channel Details  -->
+                    <Grid
+                        x:Name="ChannelDetails"
+                        Margin="0,0,0,5"
+                        ColumnDefinitions="Auto,*,Auto"
+                        ColumnSpacing="12"
+                        Opacity="0"
+                        RowDefinitions="Auto,Auto">
+
+                        <!--  Channel Pic  -->
+                        <Border
+                            Grid.Row="0"
+                            Grid.RowSpan="2"
+                            Grid.Column="0"
+                            HeightRequest="44"
+                            StrokeShape="RoundRectangle 22"
+                            StrokeThickness="2"
+                            VerticalOptions="Center"
+                            WidthRequest="44">
+                            <Image
+                                Aspect="AspectFill"
+                                HeightRequest="40"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"
+                                WidthRequest="40">
+                                <Image.Clip>
+                                    <EllipseGeometry
+                                        Center="20,20"
+                                        RadiusX="20"
+                                        RadiusY="20" />
+                                </Image.Clip>
+                                <Image.Source>
+                                    <UriImageSource CacheValidity="1:00:00.0" Uri="{Binding TheChannel.Snippet.thumbnails.high.url, Mode=OneWay}" />
+                                </Image.Source>
+                            </Image>
+                        </Border>
+
+                        <!--  Channel Name  -->
+                        <Label
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            FontAttributes="Bold"
+                            Text="{Binding TheChannel.Snippet.title, Mode=OneWay}" />
+
+                        <!--  Subscriber Count  -->
+                        <Label
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Text="00" />
+
+                        <!--  Subscribe Button  -->
+                        <Button
+                            Grid.Row="0"
+                            Grid.RowSpan="2"
+                            Grid.Column="2"
+                            Padding="12,0"
+                            Background="#FF0000"
+                            Command="{Binding SubscribeChannelCommand, Mode=OneWay}"
+                            CornerRadius="6"
+                            FontFamily="MediumFont"
+                            FontSize="12"
+                            HeightRequest="32"
+                            Text="Subscribe"
+                            TextColor="White" />
+
+                    </Grid>
+
+                    <!--  Comments Dropdown  -->
                     <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
                         <controls:SimpleButton
                             Grid.Column="0"
+                            Margin="0"
+                            Padding="0"
                             BackgroundColor="Transparent"
-                            BorderThickness="1"
                             BorderColor="{core:ThemeColor OnSurfaceVariant}"
-                            CornerRadius="10"
-                            HeightRequest="40"
+                            BorderThickness="1"
                             Clicked="BtnComments_OnClicked"
+                            CornerRadius="10"
+                            HeightRequest="35"
                             PressedBorderColor="Transparent">
-                            <Label Text="Comments"
-                                   VerticalOptions="Center"
-                                   HorizontalOptions="Center"></Label>
+                            <Label
+                                HorizontalOptions="Center"
+                                Text="Comments"
+                                VerticalOptions="Center" />
                         </controls:SimpleButton>
 
-                        <!-- Description Dropdown -->
+                        <!--  Description Dropdown  -->
                         <controls:SimpleButton
                             Grid.Column="1"
+                            Margin="0"
+                            Padding="0"
                             BackgroundColor="Transparent"
                             BorderColor="{core:ThemeColor OnSurfaceVariant}"
                             BorderThickness="1"
-                            CornerRadius="10"
-                            HeightRequest="40"
                             Clicked="BtnDescription_OnClicked"
+                            CornerRadius="10"
+                            HeightRequest="35"
                             PressedBorderColor="Transparent">
-                            <Label Text="Description"
-                                   VerticalOptions="Center"
-                                   HorizontalOptions="Center"></Label>
+                            <Label
+                                HorizontalOptions="Center"
+                                Text="Description"
+                                VerticalOptions="Center" />
                         </controls:SimpleButton>
                     </Grid>
 
-                    <!-- Tags -->
+                    <!--  Tags  -->
                     <CollectionView
                         x:Name="TagsView"
-                        Opacity="0"
-                        IsVisible="{Binding TheVideo.Snippet.Tags, Mode=OneWay, 
-                        Converter={StaticResource CvtVisibleOnItemCount}}"
+                        Margin="0,5"
                         HeightRequest="28"
+                        IsVisible="{Binding TheVideo.Snippet.Tags, Mode=OneWay, Converter={StaticResource CvtVisibleOnItemCount}}"
+                        ItemSizingStrategy="MeasureAllItems"
                         ItemsSource="{Binding TheVideo.Snippet.Tags, Mode=OneWay}"
-                        ItemSizingStrategy="MeasureAllItems">
+                        Opacity="0">
                         <CollectionView.ItemsLayout>
-                            <LinearItemsLayout
-                                Orientation="Horizontal"
-                                ItemSpacing="16" />
+                            <LinearItemsLayout ItemSpacing="16" Orientation="Horizontal" />
                         </CollectionView.ItemsLayout>
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
                                 <Border
-                                    VerticalOptions="Fill"
-                                    StrokeThickness="1"
+                                    Padding="16,0"
+                                    Stroke="{core:ThemeColor OnSurface}"
                                     StrokeShape="RoundRectangle 14"
-                                    Padding="16,0">
+                                    StrokeThickness="1"
+                                    VerticalOptions="Fill">
                                     <Label
                                         Text="{Binding .}"
                                         VerticalOptions="Center"
@@ -251,9 +318,11 @@
                     <collectionView:DXCollectionView
                         x:Name="LstVideos"
                         IsLoadMoreEnabled="True"
+                        IsRefreshing="{Binding IsLoadingMore}"
                         IsScrollBarVisible="False"
                         ItemSpacing="10"
-                        ItemsSource="{Binding SimilarVideos}">
+                        ItemsSource="{Binding SimilarVideos}"
+                        LoadMoreCommand="{Binding LoadMoreVideosCommand}">
                         <collectionView:DXCollectionView.ItemTemplate>
                             <DataTemplate x:DataType="models:Item">
                                 <viewControls:SmallVideoCell HorizontalOptions="Fill" VerticalOptions="Fill" />
@@ -262,100 +331,96 @@
                     </collectionView:DXCollectionView>
                 </VerticalStackLayout>
             </ScrollView>
-            
-            <!-- Progress Bar-->
+
+            <!--  Progress Bar  -->
             <ContentView
                 Grid.Row="2"
-                IsVisible="{Binding IsDownloading, Mode=OneWay}"
-                VerticalOptions="Fill"
+                BackgroundColor="{core:ThemeColor OnSurfaceVariant}"
                 HorizontalOptions="Fill"
-                Margin="0,0,0,16">
-                <VerticalStackLayout
-                    Spacing="8"
-                    VerticalOptions="Center"
-                    HorizontalOptions="Fill">
+                IsVisible="{Binding IsDownloading, Mode=OneWay}"
+                VerticalOptions="Fill">
+                <VerticalStackLayout HorizontalOptions="Fill" VerticalOptions="Center">
                     <ProgressBar
+                        HeightRequest="5"
+                        HorizontalOptions="Fill"
                         Progress="{Binding ProgressValue, Mode=OneWay}"
-                        HeightRequest="10"
-                        HorizontalOptions="Fill" 
-                        ProgressColor="{core:ThemeColor OnSurfaceVariant}"/>
+                        ProgressColor="Green"
+                        VerticalOptions="Fill" />
                     <Label
-                        Text="{Binding ProgressValue, Mode=OneWay, StringFormat='{0:P1}'}"
-                        HorizontalOptions="Center" 
-                        Margin="0,-15,0,0"/>
+                        Margin="0,-10,0,0"
+                        HorizontalOptions="Center"
+                        Text="{Binding ProgressValue, Mode=OneWay, StringFormat='{0:P1}'}" />
                 </VerticalStackLayout>
             </ContentView>
 
-            <!-- Bottom sheet Comments -->
-            <controls:BottomSheet x:Name="CommentsBottomSheet"
-                                  Grid.Row="0"
-                                  Grid.RowSpan="2"
-                                  CornerRadius="30"
-                                  BackgroundColor="{core:ThemeColor Surface}"
-                                  HalfExpandedRatio="0.6"
-                                  AllowDismiss="True"
-                                  ShowGrabber="True"
-                                  IsModal="True">
+            <!--  Bottom sheet Comments  -->
+            <controls:BottomSheet
+                x:Name="CommentsBottomSheet"
+                Grid.Row="0"
+                Grid.RowSpan="2"
+                AllowDismiss="True"
+                BackgroundColor="{core:ThemeColor Surface}"
+                CornerRadius="30"
+                HalfExpandedRatio="0.6"
+                IsModal="True"
+                ShowGrabber="True">
                 <!--#region BottomSheetContent-->
-                <Grid Padding="20,0"
-                      RowDefinitions="auto,auto,*"
-                      RowSpacing="10">
-                    <Label Text="{Binding TheVideo.CommentsCount, Mode=OneWay, StringFormat='Comments ({0})'}"
-                           FontAttributes="Bold"
-                           Grid.Row="0"
-                           FontSize="20"
-                           HorizontalOptions="Center"
-                           HorizontalTextAlignment="Center" />
-                    <BoxView HeightRequest="1"
-                             Grid.Row="1"
-                             BackgroundColor="LightGray"
-                             HorizontalOptions="Fill">
-                    </BoxView>
+                <Grid
+                    Padding="20,0"
+                    RowDefinitions="auto,auto,*"
+                    RowSpacing="10">
+                    <Label
+                        Grid.Row="0"
+                        FontAttributes="Bold"
+                        FontSize="20"
+                        HorizontalOptions="Center"
+                        HorizontalTextAlignment="Center"
+                        Text="{Binding TheVideo.CommentsCount, Mode=OneWay, StringFormat='Comments ({0})'}" />
+                    <BoxView
+                        Grid.Row="1"
+                        BackgroundColor="LightGray"
+                        HeightRequest="1"
+                        HorizontalOptions="Fill" />
                     <ScrollView
                         Grid.Row="2"
-                        VerticalScrollBarVisibility="Never"
-                        Padding="5,0">
-                        <CollectionView
-                            ItemsSource="{Binding Comments, Mode=OneWay}"
-                            ItemSizingStrategy="MeasureAllItems">
+                        Padding="5,0"
+                        VerticalScrollBarVisibility="Never">
+                        <CollectionView ItemSizingStrategy="MeasureAllItems" ItemsSource="{Binding Comments, Mode=OneWay}">
 
                             <CollectionView.ItemsLayout>
-                                <LinearItemsLayout
-                                    Orientation="Vertical"
-                                    ItemSpacing="12" />
+                                <LinearItemsLayout ItemSpacing="12" Orientation="Vertical" />
                             </CollectionView.ItemsLayout>
 
                             <CollectionView.ItemTemplate>
-                                <DataTemplate
-                                    x:DataType="models:Comment">
+                                <DataTemplate x:DataType="models:Comment">
                                     <Border
-                                        StrokeShape="RoundRectangle 8"
                                         Padding="16"
                                         HorizontalOptions="Fill"
+                                        StrokeShape="RoundRectangle 8"
                                         VerticalOptions="FillAndExpand">
 
                                         <Grid
-                                            RowDefinitions="Auto,*"
                                             ColumnDefinitions="32,*,Auto"
-                                            VerticalOptions="FillAndExpand"
+                                            ColumnSpacing="12"
+                                            RowDefinitions="Auto,*"
                                             RowSpacing="6"
-                                            ColumnSpacing="12">
+                                            VerticalOptions="FillAndExpand">
 
                                             <Border
-                                                WidthRequest="32"
-                                                HeightRequest="32"
-                                                VerticalOptions="Start"
-                                                StrokeThickness="1"
-                                                StrokeShape="RoundRectangle 16"
                                                 Grid.Row="0"
                                                 Grid.RowSpan="2"
-                                                Grid.Column="0">
+                                                Grid.Column="0"
+                                                HeightRequest="32"
+                                                StrokeShape="RoundRectangle 16"
+                                                StrokeThickness="1"
+                                                VerticalOptions="Start"
+                                                WidthRequest="32">
 
                                                 <Image
-                                                    VerticalOptions="Center"
+                                                    HeightRequest="30"
                                                     HorizontalOptions="Center"
-                                                    WidthRequest="30"
-                                                    HeightRequest="30">
+                                                    VerticalOptions="Center"
+                                                    WidthRequest="30">
 
                                                     <Image.Clip>
                                                         <EllipseGeometry
@@ -365,30 +430,28 @@
                                                     </Image.Clip>
 
                                                     <Image.Source>
-                                                        <UriImageSource
-                                                            Uri="{Binding Snippet.TopLevelComment.Snippet.AuthorProfileImageUrl, Mode=OneWay}"
-                                                            CacheValidity="1:00:00.0" />
+                                                        <UriImageSource CacheValidity="1:00:00.0" Uri="{Binding Snippet.TopLevelComment.Snippet.AuthorProfileImageUrl, Mode=OneWay}" />
                                                     </Image.Source>
                                                 </Image>
 
                                             </Border>
 
                                             <Label
-                                                Text="{Binding Snippet.TopLevelComment.Snippet.AuthorDisplayName, Mode=OneWay}"
                                                 Grid.Row="0"
-                                                Grid.Column="1" />
+                                                Grid.Column="1"
+                                                Text="{Binding Snippet.TopLevelComment.Snippet.AuthorDisplayName, Mode=OneWay}" />
 
                                             <Label
-                                                Text="{Binding Snippet.TopLevelComment.Snippet.publishedAt, Mode=OneWay, StringFormat='{0:dd-MMM-yyyy}'}"
                                                 Grid.Row="0"
-                                                Grid.Column="2" />
+                                                Grid.Column="2"
+                                                Text="{Binding Snippet.TopLevelComment.Snippet.publishedAt, Mode=OneWay, StringFormat='{0:dd-MMM-yyyy}'}" />
 
                                             <Label
-                                                Text="{Binding Snippet.TopLevelComment.Snippet.TextDisplay, Mode=OneWay}"
                                                 Grid.Row="1"
                                                 Grid.Column="1"
                                                 Grid.ColumnSpan="2"
                                                 LineBreakMode="WordWrap"
+                                                Text="{Binding Snippet.TopLevelComment.Snippet.TextDisplay, Mode=OneWay}"
                                                 VerticalOptions="Start" />
                                         </Grid>
                                     </Border>
@@ -397,65 +460,70 @@
                         </CollectionView>
                     </ScrollView>
 
-                    <ActivityIndicator x:Name="DrawerIndicator"
-                                       IsVisible="False"
-                                       VerticalOptions="Center"
-                                       HorizontalOptions="Center"
-                                       HeightRequest="45"
-                                       WidthRequest="45"
-                                       Grid.Row="0"
-                                       Grid.RowSpan="3"
-                                       Color="{core:ThemeColor OnSurface}" />
+                    <ActivityIndicator
+                        x:Name="DrawerIndicator"
+                        Grid.Row="0"
+                        Grid.RowSpan="3"
+                        HeightRequest="45"
+                        HorizontalOptions="Center"
+                        IsVisible="False"
+                        VerticalOptions="Center"
+                        WidthRequest="45"
+                        Color="{core:ThemeColor OnSurface}" />
                 </Grid>
                 <!--#endregion-->
             </controls:BottomSheet>
 
-            <!-- Bottom sheet Description -->
-            <controls:BottomSheet x:Name="DescriptionBottomSheet"
-                                  Grid.Row="0"
-                                  Grid.RowSpan="2"
-                                  CornerRadius="30"
-                                  BackgroundColor="{core:ThemeColor Surface}"
-                                  HalfExpandedRatio="0.6"
-                                  AllowDismiss="True"
-                                  ShowGrabber="True"
-                                  IsModal="True">
+            <!--  Bottom sheet Description  -->
+            <controls:BottomSheet
+                x:Name="DescriptionBottomSheet"
+                Grid.Row="0"
+                Grid.RowSpan="2"
+                AllowDismiss="True"
+                BackgroundColor="{core:ThemeColor Surface}"
+                CornerRadius="30"
+                HalfExpandedRatio="0.6"
+                IsModal="True"
+                ShowGrabber="True">
                 <!--#region BottomSheetContent-->
-                <Grid Padding="20,0"
-                      RowDefinitions="auto,auto,*"
-                      RowSpacing="10">
-                    <Label Text="{Binding TheVideo.CommentsCount, Mode=OneWay, StringFormat='Comments ({0})'}"
-                           FontAttributes="Bold"
-                           Grid.Row="0"
-                           FontSize="20"
-                           HorizontalOptions="Center"
-                           HorizontalTextAlignment="Center" />
-                    <BoxView HeightRequest="1"
-                             Grid.Row="1"
-                             BackgroundColor="LightGray"
-                             HorizontalOptions="Fill">
-                    </BoxView>
+                <Grid
+                    Padding="20,0"
+                    RowDefinitions="auto,auto,*"
+                    RowSpacing="10">
+                    <Label
+                        Grid.Row="0"
+                        FontAttributes="Bold"
+                        FontSize="20"
+                        HorizontalOptions="Center"
+                        HorizontalTextAlignment="Center"
+                        Text="{Binding TheVideo.CommentsCount, Mode=OneWay, StringFormat='Comments ({0})'}" />
+                    <BoxView
+                        Grid.Row="1"
+                        BackgroundColor="LightGray"
+                        HeightRequest="1"
+                        HorizontalOptions="Fill" />
                     <ScrollView
                         Grid.Row="2"
-                        VerticalScrollBarVisibility="Never"
-                        Padding="5,0">
+                        Padding="5,0"
+                        VerticalScrollBarVisibility="Never">
 
-                        <Label HorizontalOptions="Fill"
-                               LineBreakMode="WordWrap"
-                               Text="{Binding TheVideo.Snippet.description, Mode=OneWay}">
-                        </Label>
+                        <Label
+                            HorizontalOptions="Fill"
+                            LineBreakMode="WordWrap"
+                            Text="{Binding TheVideo.Snippet.description, Mode=OneWay}" />
 
                     </ScrollView>
 
-                    <ActivityIndicator x:Name="DescriptionDrawerIndicator"
-                                       IsVisible="False"
-                                       VerticalOptions="Center"
-                                       HorizontalOptions="Center"
-                                       HeightRequest="45"
-                                       WidthRequest="45"
-                                       Grid.Row="0"
-                                       Grid.RowSpan="3"
-                                       Color="{core:ThemeColor OnSurface}" />
+                    <ActivityIndicator
+                        x:Name="DescriptionDrawerIndicator"
+                        Grid.Row="0"
+                        Grid.RowSpan="3"
+                        HeightRequest="45"
+                        HorizontalOptions="Center"
+                        IsVisible="False"
+                        VerticalOptions="Center"
+                        WidthRequest="45"
+                        Color="{core:ThemeColor OnSurface}" />
                 </Grid>
                 <!--#endregion-->
             </controls:BottomSheet>

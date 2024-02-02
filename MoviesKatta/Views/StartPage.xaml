@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 
 <baseViews:ViewBase
     x:Class="MoviesKatta.Views.StartPage"
@@ -38,21 +38,25 @@
     <!--  page content  -->
     <baseViews:ViewBase.PageContent>
         <VerticalStackLayout>
-            <editors:TextEdit EndIcon="collectionview_crud_search"
-                              x:Name="SearchBar"
-                              PlaceholderText="Search..."
-                              TextFontSize="14"
-                              ClearIconColor="{core:ThemeColor OnSurfaceVariant}"
-                              TextVerticalAlignment="Center"
-                              BackgroundColor="{core:ThemeColor SurfaceContainerHighest}"
-                              BorderThickness="0" BoxPadding="20,8,10,8"
-                              PlaceholderColor="{core:ThemeColor OnSurfaceVariant}"
-                              EndIconColor="{core:ThemeColor OnSurfaceVariant}"
-                              FocusedBorderThickness="0" CornerRadius="19" HeightRequest="38"
-                              Margin="0,0,0,10"
-                              Completed="SearchBar_OnCompleted"
-                              EndIconCommand="{Binding SearchVideosCommand}"
-                              EndIconCommandParameter="{Binding Path=Text, Source={x:Reference SearchBar}, Mode=OneWay}" />
+            <editors:TextEdit
+                x:Name="SearchBar"
+                Margin="0,0,0,10"
+                BackgroundColor="{core:ThemeColor SurfaceContainerHighest}"
+                BorderThickness="0"
+                BoxPadding="20,8,10,8"
+                ClearIconColor="{core:ThemeColor OnSurfaceVariant}"
+                Completed="SearchBar_OnCompleted"
+                CornerRadius="19"
+                EndIcon="collectionview_crud_search"
+                EndIconColor="{core:ThemeColor OnSurfaceVariant}"
+                EndIconCommand="{Binding SearchVideosCommand}"
+                EndIconCommandParameter="{Binding Path=Text, Source={x:Reference SearchBar}, Mode=OneWay}"
+                FocusedBorderThickness="0"
+                HeightRequest="38"
+                PlaceholderColor="{core:ThemeColor OnSurfaceVariant}"
+                PlaceholderText="Search..."
+                TextFontSize="14"
+                TextVerticalAlignment="Center" />
 
             <collectionView:DXCollectionView
                 x:Name="LstVideos"

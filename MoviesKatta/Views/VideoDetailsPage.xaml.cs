@@ -31,9 +31,13 @@ public partial class VideoDetailsPage
             new Animation(v => HeaderView.Opacity = v, 0, 1, Easing.CubicIn));
 
         //Video Title Container Animation
-        parentAnimation.Add(0.4, 0.7,
+        parentAnimation.Add(0.3, 0.7,
             new Animation(v => VideoTitle.Opacity = v, 0, 1, Easing.CubicIn));
-        
+
+        //ChannelDetails Container Animation
+        parentAnimation.Add(0.4, 0.7,
+            new Animation(v => ChannelDetails.Opacity = v, 0, 1, Easing.CubicIn));
+
         //Video Icons Animation
         parentAnimation.Add(0.5, 0.7,
             new Animation(v => VideoIcons.Opacity = v, 0, 1, Easing.CubicIn));
