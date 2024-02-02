@@ -31,7 +31,7 @@
             Padding="0"
             IgnoreSafeArea="True"
             IsVisible="{Binding DataLoaded, Mode=OneWay}"
-            RowDefinitions="220,*,50"
+            RowDefinitions="220,*,20"
             RowSpacing="12">
 
             <!--  Poster Image  -->
@@ -71,6 +71,7 @@
             <Border
                 x:Name="Duration"
                 Grid.Row="0"
+                Padding="5,0"
                 BackgroundColor="Black"
                 HeightRequest="15"
                 HorizontalOptions="End"
@@ -334,17 +335,19 @@
             <!--  Progress Bar  -->
             <ContentView
                 Grid.Row="2"
+                BackgroundColor="{core:ThemeColor OnSurfaceVariant}"
                 HorizontalOptions="Fill"
                 IsVisible="{Binding IsDownloading, Mode=OneWay}"
                 VerticalOptions="Fill">
                 <VerticalStackLayout HorizontalOptions="Fill" VerticalOptions="Center">
                     <ProgressBar
-                        HeightRequest="10"
+                        HeightRequest="5"
                         HorizontalOptions="Fill"
                         Progress="{Binding ProgressValue, Mode=OneWay}"
-                        ProgressColor="{core:ThemeColor OnSurfaceVariant}" />
+                        ProgressColor="Green"
+                        VerticalOptions="Fill" />
                     <Label
-                        Margin="0,-15,0,0"
+                        Margin="0,-10,0,0"
                         HorizontalOptions="Center"
                         Text="{Binding ProgressValue, Mode=OneWay, StringFormat='{0:P1}'}" />
                 </VerticalStackLayout>
