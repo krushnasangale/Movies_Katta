@@ -24,7 +24,9 @@ public partial class StartPageViewModel : AppViewModelBase
         YoutubeVideos = [];
         try
         {
+            IsLoadingMore = true;
             await GetYoutubeVideo();
+            IsLoadingMore = false;
             DataLoaded = true;
         }
         catch (InternetConnectionException ex)
@@ -86,9 +88,12 @@ public partial class StartPageViewModel : AppViewModelBase
     [RelayCommand]
     private async Task SearchVideos(string searchQuery)
     {
+        IsLoadingMore = true;
         NextToken = string.Empty;
         SearchTerm = searchQuery.Trim();
+        Preferences.Set("SearchQueryText", SearchTerm);
         await Search();
+        IsLoadingMore = false;
     }
 
     [RelayCommand]

@@ -6,6 +6,7 @@ namespace MoviesKatta.ViewModels;
 public partial class VideoDetailsPageViewModel : AppViewModelBase
 {
     [ObservableProperty] private YoutubeVideoDetail _theVideo;
+    [ObservableProperty] string _nextToken = string.Empty;
     [ObservableProperty] private List<Item> _similarVideos;
     [ObservableProperty] private Channel _theChannel;
     [ObservableProperty] private List<Comment> _comments;
@@ -17,6 +18,7 @@ public partial class VideoDetailsPageViewModel : AppViewModelBase
     public event EventHandler DownloadCompleted;
     private IDownloadFileService _fileDownloadService;
     private ToastService _toastService = new();
+    [ObservableProperty] bool _isLoadingMore;
 
     public VideoDetailsPageViewModel(IApiService apiService, IDownloadFileService fileDownloadService) : base(apiService)
     {
@@ -43,11 +45,12 @@ public partial class VideoDetailsPageViewModel : AppViewModelBase
             //Find Similar Videos
             if (TheVideo.Snippet.Tags is not null)
             {
-                var similarVideosSearchResult =
-                    await _appApiService.SearchVideos(TheVideo.Snippet.Tags.First(), "");
-                var nextPageToken = similarVideosSearchResult.nextPageToken;
-                Console.WriteLine(nextPageToken);
-                SimilarVideos = similarVideosSearchResult.items;
+                await GetYoutubeVideo(TheVideo.Snippet.Tags.First(), "");
+            }
+            else
+            {
+                var searchText = Preferences.Get("SearchQueryText", string.Empty);
+                await GetYoutubeVideo(searchText, "");
             }
 
             //Raise Data Load completed event to the UI
@@ -213,5 +216,22 @@ public partial class VideoDetailsPageViewModel : AppViewModelBase
         {
             SetDataLoadingIndicators(false);
         }
+    }
+
+    [RelayCommand]
+    private async Task LoadMoreVideos()
+    {
+        if (string.IsNullOrEmpty(NextToken)) return;
+        IsLoadingMore = true;
+        await Task.Delay(500);
+        await GetYoutubeVideo(TheVideo.Snippet.Tags.First(), NextToken);
+        IsLoadingMore = false;
+    }
+    private async Task GetYoutubeVideo(string searchQuery, string nextToken)
+    {
+        var similarVideosSearchResult =
+            await _appApiService.SearchVideos(searchQuery, nextToken);
+        NextToken = similarVideosSearchResult.nextPageToken;
+        SimilarVideos = similarVideosSearchResult.items;
     }
 }
