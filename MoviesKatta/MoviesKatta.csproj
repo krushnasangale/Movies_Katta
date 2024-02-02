@@ -38,6 +38,14 @@
 		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
 	</ItemGroup>
+	<ItemGroup>
+	  <AndroidResource Remove="IViews\**" />
+	  <Compile Remove="IViews\**" />
+	  <EmbeddedResource Remove="IViews\**" />
+	  <MauiCss Remove="IViews\**" />
+	  <MauiXaml Remove="IViews\**" />
+	  <None Remove="IViews\**" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Maui" Version="7.0.1" />
@@ -57,7 +65,6 @@
 		<TrimmableAssembly Include="DevExpress.Data.v23.2" />
 	</ItemGroup>
 	<ItemGroup>
-	  <Folder Include="IViews\" />
 	  <Folder Include="Resources\Styles\" />
 	</ItemGroup>
 	<ItemGroup>

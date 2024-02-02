@@ -32,7 +32,7 @@
                 VerticalOptions="Fill"
                 IsClippedToBounds="True"
                 Padding="0"
-                HeightRequest="210"
+                HeightRequest="215"
                 Margin="0,0,2,2">
                 <Frame.GestureRecognizers>
                     <TapGestureRecognizer
@@ -89,22 +89,22 @@
                                 CacheValidity="1:00:00.0" />
                         </Image.Source>
                     </Image>
-
                 </Border>
-
-
-                <!-- Channel Name -->
-                <Label
-                    Grid.Row="0"
-                    Grid.Column="1"
-                    Text="{Binding snippet.channelTitle, Mode=OneWay}" />
 
                 <!-- Video Title -->
                 <Label
                     Grid.Row="1"
                     Grid.Column="1"
+                    FontSize="13"
                     Text="{Binding snippet.title, Mode=OneWay}" />
 
+                <!-- Channel Name -->
+                <Label
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    FontAttributes="Bold"
+                    FontSize="16"
+                    Text="{Binding snippet.channelTitle, Mode=OneWay}" />
                 <!-- Next Arrow -->
                 <Image
                     Source="imgarrow.png"

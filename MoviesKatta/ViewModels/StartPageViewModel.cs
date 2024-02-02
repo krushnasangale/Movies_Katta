@@ -76,7 +76,7 @@ public partial class StartPageViewModel : AppViewModelBase
     [RelayCommand]
     private async Task LoadMoreVideos()
     {
-        if (IsLoadingMore || string.IsNullOrEmpty(NextToken)) return;
+        if (string.IsNullOrEmpty(NextToken)) return;
         IsLoadingMore = true;
         await Task.Delay(500);
         await GetYoutubeVideo();

@@ -1,117 +1,121 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
-             ios:Page.PrefersHomeIndicatorAutoHidden="True"
-             xmlns:baseControls="clr-namespace:MoviesKatta.ViewControls.Common"
-             xmlns:controls="clr-namespace:DevExpress.Maui.Controls;assembly=DevExpress.Maui.Controls"
-             xmlns:core="clr-namespace:DevExpress.Maui.Core;assembly=DevExpress.Maui.Core"
-             x:Class="MoviesKatta.Views.Base.PageBase">
+<ContentPage
+    x:Class="MoviesKatta.Views.Base.PageBase"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:baseControls="clr-namespace:MoviesKatta.ViewControls.Common"
+    xmlns:controls="clr-namespace:DevExpress.Maui.Controls;assembly=DevExpress.Maui.Controls"
+    xmlns:core="clr-namespace:DevExpress.Maui.Core;assembly=DevExpress.Maui.Core"
+    xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+    ios:Page.PrefersHomeIndicatorAutoHidden="True">
 
-    <Grid IgnoreSafeArea="True" Padding="10,0">
+    <Grid Padding="10,0" IgnoreSafeArea="True">
         <Grid.RowDefinitions>
-            <RowDefinition Height="{OnPlatform Android=16, iOS=36, Default=0}"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="{OnPlatform Android=16, iOS=36, Default=0}" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <!-- Error Indicator -->
+        <!--  Error Indicator  -->
         <baseControls:ErrorIndicator
             Grid.Row="2"
-            IsError="{Binding IsErrorState, Mode=OneWay}"
             ErrorImage="{Binding ErrorImage, Mode=OneWay}"
             ErrorText="{Binding ErrorMessage, Mode=OneWay}"
-            VerticalOptions="Center"
-            HorizontalOptions="Center" />
+            HorizontalOptions="Center"
+            IsError="{Binding IsErrorState, Mode=OneWay}"
+            VerticalOptions="Center" />
 
-        <Grid x:Name="PageContentGrid"
-              IgnoreSafeArea="True">
-        </Grid>
-        
-        <!-- Busy Indicator -->
+        <Grid x:Name="PageContentGrid" IgnoreSafeArea="True" />
+
+        <!--  Busy Indicator  -->
         <baseControls:LoadingIndicator
             Grid.Row="2"
+            HorizontalOptions="Center"
             IsBusy="{Binding IsBusy, Mode=OneWay}"
             LoadingText="{Binding LoadingText, Mode=OneWay}"
-            HorizontalOptions="Center"
             VerticalOptions="Center" />
-        
-        <!-- Page Header -->
+
+        <!--  Page Header  -->
         <Grid
             Grid.Row="1"
+            Margin="0,6"
             ColumnDefinitions="56,*,56"
-            Margin="0,4"
             IgnoreSafeArea="True">
 
-            <!-- Icons for Left Side -->
-            <controls:SimpleButton HeightRequest="50" CornerRadius="10"
-                               BorderColor="Transparent"
-                               BackgroundColor="Transparent"
-                               Grid.Column="0" 
-                               PressedBorderColor="Transparent">
-                <core:DXImage Style="{StaticResource FilledButtonTextImageWhiteDark}"
-                              HeightRequest="25"
-                              WidthRequest="25"
-                              x:Name="HamburgerButton"
-                              Source="icnhamburger.png"
-                              VerticalOptions="Center"
-                              HorizontalOptions="Start">
-                </core:DXImage>
+            <!--  Icons for Left Side  -->
+            <controls:SimpleButton
+                x:Name="HamburgerButton"
+                Grid.Column="0"
+                BackgroundColor="Transparent"
+                BorderColor="Transparent"
+                CornerRadius="10"
+                HeightRequest="50"
+                PressedBorderColor="Transparent">
+                <core:DXImage
+                    HeightRequest="25"
+                    HorizontalOptions="Start"
+                    Source="icnhamburger.png"
+                    Style="{StaticResource FilledButtonTextImageWhiteDark}"
+                    VerticalOptions="Center"
+                    WidthRequest="25" />
             </controls:SimpleButton>
-            <!--Clicked="HamburgerButton_Clicked"-->
+            <!--  Clicked="HamburgerButton_Clicked"  -->
 
-            <controls:SimpleButton HeightRequest="50" CornerRadius="10"
-                                   BorderColor="Transparent"
-                                   BackgroundColor="Transparent"
-                                   Grid.Column="0" 
-                                   PressedBorderColor="Transparent"
-                                   Command="{Binding NavigateBackCommand, Mode=OneWay}">
-                <core:DXImage Style="{StaticResource FilledButtonTextImageWhiteDark}"
-                              HeightRequest="25"
-                              WidthRequest="25"
-                              x:Name="NavigateBackButton"
-                              Source="icnback.png"
-                              VerticalOptions="Center"
-                              HorizontalOptions="Start">
-                </core:DXImage>
-            </controls:SimpleButton>
-
-            <controls:SimpleButton HeightRequest="50" CornerRadius="10"
-                                   BorderColor="Transparent"
-                                   BackgroundColor="Transparent"
-                                   Grid.Column="0" 
-                                   PressedBorderColor="Transparent"
-                                   Command="{Binding CloseModalCommand, Mode=OneWay}">
-                <core:DXImage Style="{StaticResource FilledButtonTextImageWhiteDark}"
-                              HeightRequest="25"
-                              WidthRequest="25"
-                              x:Name="CloseButton"
-                              Source="icnclose.png"
-                              VerticalOptions="Center"
-                              HorizontalOptions="Start">
-                </core:DXImage>
+            <controls:SimpleButton
+                x:Name="NavigateBackButton"
+                Grid.Column="0"
+                BackgroundColor="Transparent"
+                BorderColor="Transparent"
+                Clicked="NavigateBackButton_OnClicked"
+                CornerRadius="10"
+                HeightRequest="50"
+                PressedBorderColor="Transparent">
+                <core:DXImage
+                    HeightRequest="25"
+                    HorizontalOptions="Start"
+                    Source="icnback.png"
+                    Style="{StaticResource FilledButtonTextImageWhiteDark}"
+                    VerticalOptions="Center"
+                    WidthRequest="25" />
             </controls:SimpleButton>
 
-            <!-- Page Header Label -->
+            <controls:SimpleButton
+                Grid.Column="0"
+                x:Name="CloseButton"
+                BackgroundColor="Transparent"
+                BorderColor="Transparent"
+                CornerRadius="10"
+                HeightRequest="50"
+                PressedBorderColor="Transparent">
+                <core:DXImage
+                    HeightRequest="25"
+                    HorizontalOptions="Start"
+                    Source="icnclose.png"
+                    Style="{StaticResource FilledButtonTextImageWhiteDark}"
+                    VerticalOptions="Center"
+                    WidthRequest="25" />
+            </controls:SimpleButton>
+
+            <!--  Page Header Label  -->
             <Label
-                Grid.Column="1"
                 x:Name="TitleLabel"
-                IsVisible="False"
+                Grid.Column="1"
+                Margin="6,0,6,-1"
                 FontSize="18"
-                VerticalOptions="Center"
                 HorizontalOptions="Fill"
                 HorizontalTextAlignment="Center"
-                VerticalTextAlignment="Center"
-                Margin="6,0,6,-1"/>
+                IsVisible="False"
+                VerticalOptions="Center"
+                VerticalTextAlignment="Center" />
 
-            <!-- Icons for Right Side -->
+            <!--  Icons for Right Side  -->
             <Grid
                 x:Name="PageIconsGrid"
                 Grid.Column="2"
                 Margin="0,4"
-                VerticalOptions="Center"
-                HorizontalOptions="End" />
+                HorizontalOptions="End"
+                VerticalOptions="Center" />
 
         </Grid>
     </Grid>

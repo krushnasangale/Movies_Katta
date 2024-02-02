@@ -20,7 +20,6 @@ public partial class StartPage
     protected override void OnSizeAllocated(double width, double height)
     {
         base.OnSizeAllocated(width, height);
-
         ItemsHeight = 60d + (width - LstVideos.Margin.Right - LstVideos.Margin.Left) / 1.8d;
     }
 
