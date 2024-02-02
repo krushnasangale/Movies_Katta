@@ -179,16 +179,86 @@
                         </HorizontalStackLayout>
                     </FlexLayout>
 
+
+                    <!--  Channel Details  -->
+                    <Grid
+                        x:Name="ChannelDetails"
+                        Margin="0,0,0,5"
+                        ColumnDefinitions="Auto,*,Auto"
+                        ColumnSpacing="12"
+                        Opacity="0"
+                        RowDefinitions="Auto,Auto">
+
+                        <!--  Channel Pic  -->
+                        <Border
+                            Grid.Row="0"
+                            Grid.RowSpan="2"
+                            Grid.Column="0"
+                            HeightRequest="44"
+                            StrokeShape="RoundRectangle 22"
+                            StrokeThickness="2"
+                            VerticalOptions="Center"
+                            WidthRequest="44">
+                            <Image
+                                Aspect="AspectFill"
+                                HeightRequest="40"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"
+                                WidthRequest="40">
+                                <Image.Clip>
+                                    <EllipseGeometry
+                                        Center="20,20"
+                                        RadiusX="20"
+                                        RadiusY="20" />
+                                </Image.Clip>
+                                <Image.Source>
+                                    <UriImageSource CacheValidity="1:00:00.0" Uri="{Binding TheChannel.Snippet.thumbnails.high.url, Mode=OneWay}" />
+                                </Image.Source>
+                            </Image>
+                        </Border>
+
+                        <!--  Channel Name  -->
+                        <Label
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            FontAttributes="Bold"
+                            Text="{Binding TheChannel.Snippet.title, Mode=OneWay}" />
+
+                        <!--  Subscriber Count  -->
+                        <Label
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Text="00" />
+
+                        <!--  Subscribe Button  -->
+                        <Button
+                            Grid.Row="0"
+                            Grid.RowSpan="2"
+                            Grid.Column="2"
+                            Padding="12,0"
+                            Background="#FF0000"
+                            Command="{Binding SubscribeChannelCommand, Mode=OneWay}"
+                            CornerRadius="6"
+                            FontFamily="MediumFont"
+                            FontSize="12"
+                            HeightRequest="32"
+                            Text="Subscribe"
+                            TextColor="White" />
+
+                    </Grid>
+
                     <!--  Comments Dropdown  -->
                     <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
                         <controls:SimpleButton
                             Grid.Column="0"
+                            Margin="0"
+                            Padding="0"
                             BackgroundColor="Transparent"
                             BorderColor="{core:ThemeColor OnSurfaceVariant}"
                             BorderThickness="1"
                             Clicked="BtnComments_OnClicked"
                             CornerRadius="10"
-                            HeightRequest="40"
+                            HeightRequest="35"
                             PressedBorderColor="Transparent">
                             <Label
                                 HorizontalOptions="Center"
@@ -199,12 +269,14 @@
                         <!--  Description Dropdown  -->
                         <controls:SimpleButton
                             Grid.Column="1"
+                            Margin="0"
+                            Padding="0"
                             BackgroundColor="Transparent"
                             BorderColor="{core:ThemeColor OnSurfaceVariant}"
                             BorderThickness="1"
                             Clicked="BtnDescription_OnClicked"
                             CornerRadius="10"
-                            HeightRequest="40"
+                            HeightRequest="35"
                             PressedBorderColor="Transparent">
                             <Label
                                 HorizontalOptions="Center"
@@ -216,6 +288,7 @@
                     <!--  Tags  -->
                     <CollectionView
                         x:Name="TagsView"
+                        Margin="0,5"
                         HeightRequest="28"
                         IsVisible="{Binding TheVideo.Snippet.Tags, Mode=OneWay, Converter={StaticResource CvtVisibleOnItemCount}}"
                         ItemSizingStrategy="MeasureAllItems"
@@ -228,6 +301,7 @@
                             <DataTemplate>
                                 <Border
                                     Padding="16,0"
+                                    Stroke="{core:ThemeColor OnSurface}"
                                     StrokeShape="RoundRectangle 14"
                                     StrokeThickness="1"
                                     VerticalOptions="Fill">
@@ -243,10 +317,10 @@
                     <collectionView:DXCollectionView
                         x:Name="LstVideos"
                         IsLoadMoreEnabled="True"
+                        IsRefreshing="{Binding IsLoadingMore}"
                         IsScrollBarVisible="False"
                         ItemSpacing="10"
                         ItemsSource="{Binding SimilarVideos}"
-                        IsRefreshing="{Binding IsLoadingMore}"
                         LoadMoreCommand="{Binding LoadMoreVideosCommand}">
                         <collectionView:DXCollectionView.ItemTemplate>
                             <DataTemplate x:DataType="models:Item">
@@ -260,14 +334,10 @@
             <!--  Progress Bar  -->
             <ContentView
                 Grid.Row="2"
-                Margin="0,0,0,16"
                 HorizontalOptions="Fill"
                 IsVisible="{Binding IsDownloading, Mode=OneWay}"
                 VerticalOptions="Fill">
-                <VerticalStackLayout
-                    HorizontalOptions="Fill"
-                    Spacing="8"
-                    VerticalOptions="Center">
+                <VerticalStackLayout HorizontalOptions="Fill" VerticalOptions="Center">
                     <ProgressBar
                         HeightRequest="10"
                         HorizontalOptions="Fill"

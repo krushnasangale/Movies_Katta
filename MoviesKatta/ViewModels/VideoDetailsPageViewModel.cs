@@ -123,15 +123,16 @@ public partial class VideoDetailsPageViewModel : AppViewModelBase
 
         var progressIndicator = new Progress<double>(value => ProgressValue = value);
         var cancellationToken = new CancellationTokenSource().Token;
-
         try
         {
             IsDownloading = true;
 
             // Create a folder in local storage
-            string folderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "DownloadedVideos");
+            string folderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                "DownloadedVideos");
             Directory.CreateDirectory(folderPath);
 
+            if (streamInfos is null) await GetVideoUrl();
             // Get the highest resolution video URL
             var urlToDownload = streamInfos.OrderByDescending(video => video.VideoResolution.Area).First().Url;
 
@@ -140,7 +141,7 @@ public partial class VideoDetailsPageViewModel : AppViewModelBase
                 urlToDownload,
                 Path.Combine(folderPath, TheVideo.Snippet.title.CleanCacheKey() + ".mp4"),
                 progressIndicator, cancellationToken);
-            
+
             // save file in local storage
             await _toastService.ShowToast("Download Completed!");
 
@@ -152,6 +153,10 @@ public partial class VideoDetailsPageViewModel : AppViewModelBase
             });
         }
         catch (OperationCanceledException ex)
+        {
+            await _toastService.ShowToast("Download Cancelled. Please try again.");
+        }
+        catch (Exception exception)
         {
             await _toastService.ShowToast("Download Cancelled. Please try again.");
         }
