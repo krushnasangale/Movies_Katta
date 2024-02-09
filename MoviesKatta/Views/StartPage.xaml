@@ -4,6 +4,7 @@
     x:Class="MoviesKatta.Views.StartPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:tab="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:baseViews="clr-namespace:MoviesKatta.Views.Base"
     xmlns:collectionView="clr-namespace:DevExpress.Maui.CollectionView;assembly=DevExpress.Maui.CollectionView"
     xmlns:core="clr-namespace:DevExpress.Maui.Core;assembly=DevExpress.Maui.Core"
@@ -37,41 +38,65 @@
 
     <!--  page content  -->
     <baseViews:ViewBase.PageContent>
-        <VerticalStackLayout>
-            <editors:TextEdit
-                x:Name="SearchBar"
-                Margin="0,0,0,10"
-                BackgroundColor="{core:ThemeColor SurfaceContainerHighest}"
-                BorderThickness="0"
-                BoxPadding="20,8,10,8"
-                ClearIconColor="{core:ThemeColor OnSurfaceVariant}"
-                Completed="SearchBar_OnCompleted"
-                CornerRadius="19"
-                EndIcon="collectionview_crud_search"
-                EndIconColor="{core:ThemeColor OnSurfaceVariant}"
-                EndIconCommand="{Binding SearchVideosCommand}"
-                EndIconCommandParameter="{Binding Path=Text, Source={x:Reference SearchBar}, Mode=OneWay}"
-                FocusedBorderThickness="0"
-                HeightRequest="38"
-                PlaceholderColor="{core:ThemeColor OnSurfaceVariant}"
-                PlaceholderText="Search..."
-                TextFontSize="14"
-                TextVerticalAlignment="Center" />
+        <Grid>
+            <dxco:TabView HeaderPanelPosition="Bottom"
+                          ItemHeaderWidth="*"
+                          ItemHeaderTextColor="LightGray"
+                          ItemHeaderIconColor="LightGray"
+                          SelectedItemHeaderIconColor="Black"
+                          SelectedItemHeaderTextColor="Black"
+                          IsSelectedItemIndicatorVisible="False"
+                          HeaderPanelBackgroundColor="{core:ThemeColor InverseOnSurface}">
+                <dxco:TabViewItem HeaderText="Videos"
+                                  HeaderIcon="tab1.svg">
+                    <dxco:TabViewItem.Content>
+                        <VerticalStackLayout>
+                            <editors:TextEdit
+                                x:Name="SearchBar"
+                                Margin="0,0,0,10"
+                                BackgroundColor="{core:ThemeColor SurfaceContainerHighest}"
+                                BorderThickness="0"
+                                BoxPadding="20,8,10,8"
+                                ClearIconColor="{core:ThemeColor OnSurfaceVariant}"
+                                Completed="SearchBar_OnCompleted"
+                                CornerRadius="19"
+                                EndIcon="collectionview_crud_search"
+                                EndIconColor="{core:ThemeColor OnSurfaceVariant}"
+                                EndIconCommand="{Binding SearchVideosCommand}"
+                                EndIconCommandParameter="{Binding Path=Text, Source={x:Reference SearchBar}, Mode=OneWay}"
+                                FocusedBorderThickness="0"
+                                HeightRequest="38"
+                                PlaceholderColor="{core:ThemeColor OnSurfaceVariant}"
+                                PlaceholderText="Search..."
+                                TextFontSize="14"
+                                TextVerticalAlignment="Center" />
 
-            <collectionView:DXCollectionView
-                x:Name="LstVideos"
-                IsLoadMoreEnabled="True"
-                IsRefreshing="{Binding IsLoadingMore}"
-                IsScrollBarVisible="False"
-                ItemSpacing="10"
-                ItemsSource="{Binding YoutubeVideos}"
-                LoadMoreCommand="{Binding LoadMoreVideosCommand}">
-                <collectionView:DXCollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="models:Item">
-                        <viewControls:VideoCell HorizontalOptions="Fill" VerticalOptions="Fill" />
-                    </DataTemplate>
-                </collectionView:DXCollectionView.ItemTemplate>
-            </collectionView:DXCollectionView>
-        </VerticalStackLayout>
+                            <collectionView:DXCollectionView
+                                x:Name="LstVideos"
+                                IsLoadMoreEnabled="True"
+                                IsRefreshing="{Binding IsLoadingMore}"
+                                IsScrollBarVisible="False"
+                                ItemSpacing="10"
+                                ItemsSource="{Binding YoutubeVideos}"
+                                LoadMoreCommand="{Binding LoadMoreVideosCommand}">
+                                <collectionView:DXCollectionView.ItemTemplate>
+                                    <DataTemplate x:DataType="models:Item">
+                                        <viewControls:VideoCell HorizontalOptions="Fill" VerticalOptions="Fill" />
+                                    </DataTemplate>
+                                </collectionView:DXCollectionView.ItemTemplate>
+                            </collectionView:DXCollectionView>
+                        </VerticalStackLayout>
+                    </dxco:TabViewItem.Content>
+                </dxco:TabViewItem>
+                <dxco:TabViewItem HeaderText="Movies"
+                                  HeaderIcon="tab2.svg">
+                    <dxco:TabViewItem.Content>
+                        <VerticalStackLayout>
+                            <Label Text="Netflix"></Label>
+                        </VerticalStackLayout>
+                    </dxco:TabViewItem.Content>
+                </dxco:TabViewItem>
+            </dxco:TabView>
+        </Grid>
     </baseViews:ViewBase.PageContent>
 </baseViews:ViewBase>
