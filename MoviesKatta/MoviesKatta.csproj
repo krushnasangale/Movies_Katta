@@ -45,12 +45,20 @@
 	  <MauiCss Remove="IViews\**" />
 	  <MauiXaml Remove="IViews\**" />
 	  <None Remove="IViews\**" />
+	  <MauiXaml Update="Views\YtViews\VideoDetailsPage.xaml">
+	    <SubType>Designer</SubType>
+	  </MauiXaml>
+	  <Compile Update="Views\YtViews\VideoDetailsPage.xaml.cs">
+	    <DependentUpon>VideoDetailsPage.xaml</DependentUpon>
+	    <SubType>Code</SubType>
+	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Maui" Version="7.0.1" />
 		<PackageReference Include="CommunityToolkit.Maui.MediaElement" Version="3.0.1" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+		<PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.6" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.6" />
 		<PackageReference Include="MonkeyCache.FileStore" Version="2.1.0-beta" />
@@ -65,7 +73,11 @@
 		<TrimmableAssembly Include="DevExpress.Data.v23.2" />
 	</ItemGroup>
 	<ItemGroup>
+	  <Folder Include="Models\TmdbModels\" />
 	  <Folder Include="Resources\Styles\" />
+	  <Folder Include="Services\TmdbServices\" />
+	  <Folder Include="ViewModels\TmdbViewModels\" />
+	  <Folder Include="Views\TmdbViews\" />
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\Maui.Apps.Framework\Maui.Apps.Framework.csproj" />

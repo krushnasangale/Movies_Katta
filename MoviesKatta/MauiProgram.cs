@@ -1,4 +1,6 @@
-﻿namespace MoviesKatta
+﻿using VideoDetailsPageViewModel = MoviesKatta.ViewModels.YtViewModels.VideoDetailsPageViewModel;
+
+namespace MoviesKatta
 {
     public static class MauiProgram
     {

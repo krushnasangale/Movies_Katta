@@ -22,6 +22,7 @@
         <PackageReference Include="CommunityToolkit.Maui" Version="7.0.1" />
         <PackageReference Include="CommunityToolkit.Maui.MediaElement" Version="3.0.1" />
         <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+        <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0" />
         <PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)"/>
         <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)"/>
         <PackageReference Include="MonkeyCache.FileStore" Version="2.1.0-beta" />

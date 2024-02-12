@@ -1,4 +1,6 @@
-﻿namespace MoviesKatta.ViewModels;
+﻿using MoviesKatta.Views.YtViews;
+
+namespace MoviesKatta.ViewModels;
 
 public partial class StartPageViewModel : AppViewModelBase
 {

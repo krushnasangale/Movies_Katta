@@ -28,3 +28,4 @@ global using YoutubeExplode.Videos.Streams;
 global using DevExpress.Maui.Controls;
 global using CommunityToolkit.Maui.Alerts;
 global using CommunityToolkit.Maui.Core;
+global using MoviesKatta.Views.YtViews;

@@ -6,6 +6,7 @@
              xmlns:core="clr-namespace:DevExpress.Maui.Core;assembly=DevExpress.Maui.Core"
              x:DataType="models:Item"
              xmlns:viewModels="clr-namespace:MoviesKatta.ViewModels"
+             xmlns:ytViewModels="clr-namespace:MoviesKatta.ViewModels.YtViewModels"
              x:Class="MoviesKatta.ViewControls.SmallVideoCell">
 
     <Border
@@ -15,7 +16,7 @@
 
         <Border.GestureRecognizers>
             <TapGestureRecognizer
-                Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:VideoDetailsPageViewModel}}, Path=NavigateToVideoDetailsPageCommand, Mode=OneWay}"
+                Command="{Binding Source={RelativeSource AncestorType={x:Type ytViewModels:VideoDetailsPageViewModel}}, Path=NavigateToVideoDetailsPageCommand, Mode=OneWay}"
                 CommandParameter="{Binding id.videoId}" />
         </Border.GestureRecognizers>
 
@@ -35,7 +36,7 @@
                 Margin="0,0,2,2">
                 <Frame.GestureRecognizers>
                     <TapGestureRecognizer
-                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:VideoDetailsPageViewModel}}, Path=NavigateToVideoDetailsPageCommand, Mode=OneWay}"
+                        Command="{Binding Source={RelativeSource AncestorType={x:Type ytViewModels:VideoDetailsPageViewModel}}, Path=NavigateToVideoDetailsPageCommand, Mode=OneWay}"
                         CommandParameter="{Binding id.videoId}" />
                 </Frame.GestureRecognizers>
                 <Image

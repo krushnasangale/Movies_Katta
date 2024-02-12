@@ -1,4 +1,6 @@
-﻿namespace MoviesKatta.Views;
+﻿using VideoDetailsPageViewModel = MoviesKatta.ViewModels.YtViewModels.VideoDetailsPageViewModel;
+
+namespace MoviesKatta.Views.YtViews;
 
 public partial class VideoDetailsPage
 {

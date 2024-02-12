@@ -1,7 +1,4 @@
-﻿using CommunityToolkit.Maui.Alerts;
-using CommunityToolkit.Maui.Core;
-
-namespace MoviesKatta.ViewModels;
+﻿namespace MoviesKatta.ViewModels.YtViewModels;
 
 public partial class VideoDetailsPageViewModel : AppViewModelBase
 {
@@ -45,7 +42,7 @@ public partial class VideoDetailsPageViewModel : AppViewModelBase
             //Find Similar Videos
             if (TheVideo.Snippet.Tags is not null)
             {
-                await GetYoutubeVideo(TheVideo.Snippet.Tags.First(), "");
+                await GetYoutubeVideo(Enumerable.First<string>(TheVideo.Snippet.Tags), "");
             }
             else
             {
@@ -139,7 +136,7 @@ public partial class VideoDetailsPageViewModel : AppViewModelBase
             // Download the file
             var downloadedFilePath = await _fileDownloadService.DownloadFileAsync(
                 urlToDownload,
-                Path.Combine(folderPath, TheVideo.Snippet.title.CleanCacheKey() + ".mp4"),
+                Path.Combine(folderPath, StringExtensions.CleanCacheKey(TheVideo.Snippet.title) + ".mp4"),
                 progressIndicator, cancellationToken);
 
             // save file in local storage
@@ -186,7 +183,7 @@ public partial class VideoDetailsPageViewModel : AppViewModelBase
     {
         try
         {
-            await Task.Run(async () =>
+            await Task.Run((Func<Task>)(async () =>
             {
                 var youtube = new YoutubeClient();
                 var videoUrl = $"https://youtube.com/watch?v={TheVideo.Id}";
@@ -199,7 +196,7 @@ public partial class VideoDetailsPageViewModel : AppViewModelBase
 
                 // Update UI elements or perform any actions with the obtained data
                 Device.BeginInvokeOnMainThread(() => { VideoSource = videoPlayerStream.Url; });
-            });
+            }));
         }
         catch (InternetConnectionException ex)
         {
@@ -229,7 +226,7 @@ public partial class VideoDetailsPageViewModel : AppViewModelBase
         if (string.IsNullOrEmpty(NextToken)) return;
         IsLoadingMore = true;
         await Task.Delay(500);
-        await GetYoutubeVideo(TheVideo.Snippet.Tags.First(), NextToken);
+        await GetYoutubeVideo(Enumerable.First<string>(TheVideo.Snippet.Tags), NextToken);
         IsLoadingMore = false;
     }
     private async Task GetYoutubeVideo(string searchQuery, string nextToken)
