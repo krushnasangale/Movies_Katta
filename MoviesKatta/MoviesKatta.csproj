@@ -73,9 +73,7 @@
 		<TrimmableAssembly Include="DevExpress.Data.v23.2" />
 	</ItemGroup>
 	<ItemGroup>
-	  <Folder Include="Models\TmdbModels\" />
 	  <Folder Include="Resources\Styles\" />
-	  <Folder Include="Services\TmdbServices\" />
 	  <Folder Include="ViewModels\TmdbViewModels\" />
 	  <Folder Include="Views\TmdbViews\" />
 	</ItemGroup>

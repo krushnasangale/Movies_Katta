@@ -1,4 +1,5 @@
-﻿using MoviesKatta.Views.YtViews;
+﻿using MoviesKatta.Models.TmdbModels;
+using MoviesKatta.Services.TmdbServices;
 
 namespace MoviesKatta.ViewModels;
 
@@ -8,10 +9,15 @@ public partial class StartPageViewModel : AppViewModelBase
     [ObservableProperty] string _searchTerm = "Bollywood songs";
     [ObservableProperty] ObservableCollection<Item> _youtubeVideos;
     [ObservableProperty] bool _isLoadingMore;
-
-    public StartPageViewModel(IApiService appApiService) : base(appApiService)
+    private readonly TmdbService _tmdbService;
+    [ObservableProperty] ObservableCollection<MovieResult> _trendingMovies;
+    [ObservableProperty] ObservableCollection<MovieResult> _netflixMovies;
+    [ObservableProperty] ObservableCollection<MovieResult> _actionMovies;
+    [ObservableProperty] ObservableCollection<MovieResult> _topRatedMovies;
+    public StartPageViewModel(IApiService appApiService, TmdbService tmdbService) : base(appApiService)
     {
         Title = "Movies Katta";
+        _tmdbService = tmdbService;
     }
 
     public override async void OnNavigatedTo(object parameters)
@@ -28,6 +34,10 @@ public partial class StartPageViewModel : AppViewModelBase
         {
             IsLoadingMore = true;
             await GetYoutubeVideo();
+            await GetTrendingMovies();
+            await GetActionMovies();
+            await GetTopRatedMovies();
+            await GetNetflixMovies();
             IsLoadingMore = false;
             DataLoaded = true;
         }
@@ -51,6 +61,31 @@ public partial class StartPageViewModel : AppViewModelBase
         {
             SetDataLoadingIndicators(false);
         }
+    }
+
+    private async Task GetTrendingMovies()
+    {
+        var result = await _tmdbService.GetTrendingMovies();
+        if(result == null) return;
+        TrendingMovies = new ObservableCollection<MovieResult>(result);
+    }
+    private async Task GetActionMovies()
+    {
+        var result = await _tmdbService.GetTrendingMovies();
+        if(result == null) return;
+        ActionMovies = new ObservableCollection<MovieResult>(result);
+    }
+    private async Task GetTopRatedMovies()
+    {
+        var result = await _tmdbService.GetTrendingMovies();
+        if(result == null) return;
+        TopRatedMovies = new ObservableCollection<MovieResult>(result);
+    }
+    private async Task GetNetflixMovies()
+    {
+        var result = await _tmdbService.GetTrendingMovies();
+        if(result == null) return;
+        NetflixMovies = new ObservableCollection<MovieResult>(result);
     }
 
     private async Task GetYoutubeVideo()

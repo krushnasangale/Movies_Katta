@@ -1,4 +1,5 @@
-﻿using VideoDetailsPageViewModel = MoviesKatta.ViewModels.YtViewModels.VideoDetailsPageViewModel;
+﻿using MoviesKatta.Services.TmdbServices;
+using VideoDetailsPageViewModel = MoviesKatta.ViewModels.YtViewModels.VideoDetailsPageViewModel;
 
 namespace MoviesKatta
 {
@@ -49,14 +50,16 @@ namespace MoviesKatta
             //Register Cache Barrel
             Barrel.ApplicationId = Constants.ApplicationId;
             services.AddSingleton(Barrel.Current);
-
+            services.AddHttpClient(TmdbService.TmdbHttpClientName,
+                httpClient => httpClient.BaseAddress = new Uri("https://api.themoviedb.org"));
 
             //Register API Service
             services.AddSingleton<IApiService, YoutubeService>();
+            services.AddSingleton<TmdbService>();
 
             // Register FileDownloadService
-             services.AddSingleton<IDownloadFileService, FileDownloadService>();
-            
+            services.AddSingleton<IDownloadFileService, FileDownloadService>();
+
             // //Register View Models
             services.AddSingleton<StartPageViewModel>();
             services.AddTransient<VideoDetailsPageViewModel>();

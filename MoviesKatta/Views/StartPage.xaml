@@ -1,10 +1,9 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 
 <baseViews:ViewBase
     x:Class="MoviesKatta.Views.StartPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:tab="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:baseViews="clr-namespace:MoviesKatta.Views.Base"
     xmlns:collectionView="clr-namespace:DevExpress.Maui.CollectionView;assembly=DevExpress.Maui.CollectionView"
     xmlns:core="clr-namespace:DevExpress.Maui.Core;assembly=DevExpress.Maui.Core"
@@ -91,9 +90,39 @@
                 <dxco:TabViewItem HeaderText="Movies"
                                   HeaderIcon="tab2.svg">
                     <dxco:TabViewItem.Content>
-                        <VerticalStackLayout>
-                            <Label Text="Netflix"></Label>
-                        </VerticalStackLayout>
+                        <dxco:TabView HeaderPanelPosition="Top"
+                                      ItemHeaderWidth="*"
+                                      ItemHeaderTextColor="LightGray"
+                                      ItemHeaderIconColor="LightGray"
+                                      SelectedItemHeaderIconColor="Black"
+                                      SelectedItemHeaderTextColor="Black"
+                                      IsSelectedItemIndicatorVisible="False"
+                                      HeaderPanelBackgroundColor="{core:ThemeColor InverseOnSurface}">
+                            <dxco:TabViewItem HeaderText="Home"
+                                              HeaderIcon="tab1.svg">
+                                <dxco:TabViewItem.Content>
+                                    <Grid>
+                                        <Label Text="tab1"></Label>
+                                    </Grid>
+                                </dxco:TabViewItem.Content>
+                            </dxco:TabViewItem>
+                            <dxco:TabViewItem HeaderText="Games"
+                                              HeaderIcon="tab2.svg">
+                                <dxco:TabViewItem.Content>
+                                    <Grid>
+                                        <Label Text="tab2"></Label>
+                                    </Grid>
+                                </dxco:TabViewItem.Content>
+                            </dxco:TabViewItem>
+                            <dxco:TabViewItem HeaderText="New &amp; Hot"
+                                              HeaderIcon="tab1.svg">
+                                <dxco:TabViewItem.Content>
+                                    <Grid>
+                                        <Label Text="tab3"></Label>
+                                    </Grid>
+                                </dxco:TabViewItem.Content>
+                            </dxco:TabViewItem>
+                        </dxco:TabView>
                     </dxco:TabViewItem.Content>
                 </dxco:TabViewItem>
             </dxco:TabView>
