@@ -37,17 +37,16 @@
 
     <!--  page content  -->
     <baseViews:ViewBase.PageContent>
-        <Grid>
+        <Grid Padding="-10,0">
             <dxco:TabView HeaderPanelPosition="Bottom"
                           ItemHeaderWidth="*"
-                          ItemHeaderTextColor="LightGray"
-                          ItemHeaderIconColor="LightGray"
-                          SelectedItemHeaderIconColor="Black"
-                          SelectedItemHeaderTextColor="Black"
-                          IsSelectedItemIndicatorVisible="False"
+                          ItemHeaderTextColor="Black"
+                          SelectedItemHeaderTextColor="White"
+                          IsSelectedItemIndicatorVisible="True"
+                          SelectedItemIndicatorColor="Red"
                           HeaderPanelBackgroundColor="{core:ThemeColor InverseOnSurface}">
                 <dxco:TabViewItem HeaderText="Videos"
-                                  HeaderIcon="tab1.svg">
+                                  HeaderHeight="20">
                     <dxco:TabViewItem.Content>
                         <VerticalStackLayout>
                             <editors:TextEdit
@@ -88,26 +87,87 @@
                     </dxco:TabViewItem.Content>
                 </dxco:TabViewItem>
                 <dxco:TabViewItem HeaderText="Movies"
-                                  HeaderIcon="tab2.svg">
+                                  HeaderHeight="20">
                     <dxco:TabViewItem.Content>
                         <dxco:TabView HeaderPanelPosition="Top"
+                                      HeaderPanelHeight="25"
                                       ItemHeaderWidth="*"
-                                      ItemHeaderTextColor="LightGray"
-                                      ItemHeaderIconColor="LightGray"
-                                      SelectedItemHeaderIconColor="Black"
-                                      SelectedItemHeaderTextColor="Black"
-                                      IsSelectedItemIndicatorVisible="False"
+                                      ItemHeaderTextColor="Black"
+                                      SelectedItemHeaderTextColor="White"
+                                      IsSelectedItemIndicatorVisible="True"
+                                      SelectedItemIndicatorColor="Red"
                                       HeaderPanelBackgroundColor="{core:ThemeColor InverseOnSurface}">
                             <dxco:TabViewItem HeaderText="Home"
-                                              HeaderIcon="tab1.svg">
+                                              HeaderHeight="20">
                                 <dxco:TabViewItem.Content>
-                                    <Grid>
-                                        <Label Text="tab1"></Label>
+                                    <Grid HeightRequest="400">
+                                        <Image Aspect="Center"
+                                               HeightRequest="250"
+                                               VerticalOptions="Start"
+                                               Opacity="0.8"
+                                               Source="{Binding TrendingMovie.Thumbnail}">
+                                        </Image>
+
+                                        <Grid VerticalOptions="Start"
+                                              HeightRequest="35"
+                                              Margin="0, 35, 0, 0">
+                                            <FlexLayout JustifyContent="SpaceAround"
+                                                        VerticalOptions="Center">
+                                                <Label Text="TV Shows" />
+                                                <Label Text="Movies" />
+                                                <Label Text="Categories" />
+                                            </FlexLayout>
+                                        </Grid>
+
+                                        <HorizontalStackLayout VerticalOptions="End"
+                                                               HorizontalOptions="Center"
+                                                               Spacing="50">
+                                            <VerticalStackLayout>
+                                                <Label Text="+"
+                                                       HorizontalTextAlignment="Center"
+                                                       FontAttributes="Bold"
+                                                       FontSize="20" />
+                                                <Label Text="My List"
+                                                       HorizontalTextAlignment="Center" />
+                                            </VerticalStackLayout>
+
+                                            <Border StrokeShape="RoundRectangle 5"
+                                                    BackgroundColor="White"
+                                                    Padding="20, 5">
+                                                <HorizontalStackLayout Spacing="5"
+                                                                       VerticalOptions="Center">
+                                                    <Image Source="play"
+                                                           Aspect="AspectFit"
+                                                           HeightRequest="16"
+                                                           WidthRequest="16" />
+                                                    <Label Text="Play"
+                                                           TextColor="Black"
+                                                           FontAttributes="Bold"
+                                                           FontSize="16" />
+                                                </HorizontalStackLayout>
+                                            </Border>
+
+                                            <VerticalStackLayout>
+                                                <Grid HorizontalOptions="Center">
+                                                    <Ellipse Stroke="White"
+                                                             HeightRequest="22"
+                                                             WidthRequest="22"
+                                                             StrokeThickness="2" />
+                                                    <Label Text="i"
+                                                           HorizontalTextAlignment="Center"
+                                                           VerticalTextAlignment="Center"
+                                                           FontAttributes="Bold" />
+                                                </Grid>
+                                                <Label Text="Info"
+                                                       HorizontalOptions="Center"
+                                                       Margin="0, 10, 0, 0" />
+                                            </VerticalStackLayout>
+                                        </HorizontalStackLayout>
                                     </Grid>
                                 </dxco:TabViewItem.Content>
                             </dxco:TabViewItem>
                             <dxco:TabViewItem HeaderText="Games"
-                                              HeaderIcon="tab2.svg">
+                                              HeaderHeight="20">
                                 <dxco:TabViewItem.Content>
                                     <Grid>
                                         <Label Text="tab2"></Label>
@@ -115,7 +175,7 @@
                                 </dxco:TabViewItem.Content>
                             </dxco:TabViewItem>
                             <dxco:TabViewItem HeaderText="New &amp; Hot"
-                                              HeaderIcon="tab1.svg">
+                                              HeaderHeight="20">
                                 <dxco:TabViewItem.Content>
                                     <Grid>
                                         <Label Text="tab3"></Label>

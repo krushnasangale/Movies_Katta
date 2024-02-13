@@ -14,6 +14,8 @@ public partial class StartPageViewModel : AppViewModelBase
     [ObservableProperty] ObservableCollection<MovieResult> _netflixMovies;
     [ObservableProperty] ObservableCollection<MovieResult> _actionMovies;
     [ObservableProperty] ObservableCollection<MovieResult> _topRatedMovies;
+    [ObservableProperty] MovieResult _trendingMovie;
+
     public StartPageViewModel(IApiService appApiService, TmdbService tmdbService) : base(appApiService)
     {
         Title = "Movies Katta";
@@ -66,25 +68,29 @@ public partial class StartPageViewModel : AppViewModelBase
     private async Task GetTrendingMovies()
     {
         var result = await _tmdbService.GetTrendingMovies();
-        if(result == null) return;
+        if (result == null) return;
         TrendingMovies = new ObservableCollection<MovieResult>(result);
+        if (TrendingMovies is { Count: > 0 }) TrendingMovie = TrendingMovies[0];
     }
+
     private async Task GetActionMovies()
     {
-        var result = await _tmdbService.GetTrendingMovies();
-        if(result == null) return;
+        var result = await _tmdbService.GetActionMovies();
+        if (result == null) return;
         ActionMovies = new ObservableCollection<MovieResult>(result);
     }
+
     private async Task GetTopRatedMovies()
     {
-        var result = await _tmdbService.GetTrendingMovies();
-        if(result == null) return;
+        var result = await _tmdbService.GetTopRatedMovies();
+        if (result == null) return;
         TopRatedMovies = new ObservableCollection<MovieResult>(result);
     }
+
     private async Task GetNetflixMovies()
     {
-        var result = await _tmdbService.GetTrendingMovies();
-        if(result == null) return;
+        var result = await _tmdbService.GetNetflixMovies();
+        if (result == null) return;
         NetflixMovies = new ObservableCollection<MovieResult>(result);
     }
 

@@ -45,6 +45,18 @@
 	  <MauiCss Remove="IViews\**" />
 	  <MauiXaml Remove="IViews\**" />
 	  <None Remove="IViews\**" />
+	  <None Remove="Resources\Images\brand_netflix.svg" />
+	  <None Remove="Resources\Images\close.svg" />
+	  <None Remove="Resources\Images\explore.svg" />
+	  <None Remove="Resources\Images\game.svg" />
+	  <None Remove="Resources\Images\home.svg" />
+	  <None Remove="Resources\Images\info_circle.svg" />
+	  <None Remove="Resources\Images\library.svg" />
+	  <None Remove="Resources\Images\movie.svg" />
+	  <None Remove="Resources\Images\notification_bell.svg" />
+	  <None Remove="Resources\Images\ntflx_logo.png" />
+	  <None Remove="Resources\Images\rate.svg" />
+	  <None Remove="Resources\Images\user.svg" />
 	  <MauiXaml Update="Views\YtViews\VideoDetailsPage.xaml">
 	    <SubType>Designer</SubType>
 	  </MauiXaml>
